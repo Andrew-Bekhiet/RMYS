@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="2.0dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2.0dp"
+            android:layout_marginBottom="4.7dp">
+            <Button
+                android:text="+"
+                android:id="@+id/AddM"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@android:style/Holo.SegmentedButton" />
+            <ImageView
+                android:src="@android:drawable/ic_menu_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/MSearchB" />
+            <AutoCompleteTextView
+                android:id="@+id/MSearch"
+                android:hint="بحث ..."
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/MOrder" />
+    </LinearLayout>
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/MLL"
+            android:showDividers="middle"
+            android:backgroundTint="#00000000"
+            android:foregroundTint="#00000000"
+            android:backgroundTintMode="src_over">
+            <TextView
+                android:text="إجتماع إعدادي"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MName"
+                android:backgroundTint="#00000000"
+                android:backgroundTintMode="src_over"
+                android:background="#EBEBEB" />
+            <TextView
+                android:text="كنيسة السيدة العذراء مريم بالإسماعيلية"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MPlace"
+                android:background="#EBEBEB" />
+            <TextView
+                android:text="الجمعة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MDays"
+                android:background="#EBEBEB" />
+            <TextView
+                android:text="5:00 مساءً"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/MTiming"
+                android:background="#EBEBEB" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:id="@+id/Space"
+                android:background="#FFFFFF"
+                android:foreground="#FFFFFF"
+                android:backgroundTintMode="multiply"
+                android:foregroundTintMode="add"
+                style="@android:style/Holo.Light.ButtonBar" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

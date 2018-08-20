@@ -9,6 +9,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Description = Remember for MY Foreverity. مشروع الكرازة 2018
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E74F0CE3-6196-44A2-8BCF-4DE82EB9ACDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

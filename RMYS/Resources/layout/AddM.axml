@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NMName"
+            android:hint="اسم الإجتماع"
+            android:inputType="text" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NMPlace"
+            android:hint="المكان"
+            android:inputType="text" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NMLL">
+            <CheckBox
+                android:text="الأحد"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMSunday"
+                android:tag="0" />
+            <CheckBox
+                android:text="الإثنين"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMMonday"
+                android:tag="1" />
+            <CheckBox
+                android:text="الثلاثاء"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMTuesday"
+                android:tag="2" />
+            <CheckBox
+                android:text="الأربعاء"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMWednesday"
+                android:tag="3" />
+            <CheckBox
+                android:text="الخميس"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMThursday"
+                android:tag="4" />
+            <CheckBox
+                android:text="الجمعة"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMFriday"
+                android:tag="5" />
+            <CheckBox
+                android:text="السبت"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NMSaturday"
+                android:tag="6" />
+        </LinearLayout>
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NMTime" />
+        <Button
+            android:text="حفظ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NMSave" />
+        <Button
+            android:text="حذف هذا الاجتماع"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/DeleteM" />
+        <Button
+            android:text="إلغاء"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/NMCancel" />
+    </LinearLayout>
+</ScrollView>

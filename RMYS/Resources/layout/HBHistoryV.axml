@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <TextView
+            android:text="العنوان:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/HTitle"
+            android:inputType="textMultiLine" />
+        <TextView
+            android:text="التاريخ:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HDate" />
+        <TextView
+            android:text="أكثر آية أعجبتني:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/HVerse"
+            android:inputType="textMultiLine" />
+        <TextView
+            android:text="الشاهد:"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView1" />
+        <EditText
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Visor" />
+        <Button
+            android:text="حفظ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HSave" />
+        <Button
+            android:text="حذف"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HDelete" />
+        <Button
+            android:text="إلغاء"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HCancel" />
+    </LinearLayout>
+</ScrollView>

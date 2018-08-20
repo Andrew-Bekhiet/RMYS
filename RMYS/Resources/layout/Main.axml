@@ -1,13 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-<Button  
-    android:id="@+id/MyButton"
-    android:layout_width="match_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/Hello"
-    />
-</LinearLayout>
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:textAlignment="inherit"
+        android:textDirection="rtl">
+        <Button
+            android:text="الإجتماعات"
+            android:layout_width="match_parent"
+            android:id="@+id/Meet"
+            android:backgroundTint="#ff00cc6a"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:background="#00CC6A"
+            android:backgroundTintMode="src_atop"
+            android:layout_margin="5dp" />
+        <Button
+            android:text="القداسات"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:id="@+id/Kodas"
+            android:backgroundTint="#ff00b7c3"
+            android:background="#00B7C3"
+            android:layout_margin="5dp"
+            android:backgroundTintMode="src_atop" />
+        <Button
+            android:text="قراءة الكتاب المقدس"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:id="@+id/HolyB"
+            android:backgroundTint="#ffca5010"
+            android:backgroundTintMode="src_atop"
+            android:layout_margin="5dp"
+            android:background="#CA5010" />
+        <Button
+            android:text="القانون الروحي"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:id="@+id/SLaw"
+            android:backgroundTint="#ff744da9"
+            android:backgroundTintMode="src_atop"
+            android:layout_margin="5dp"
+            android:background="#744DA9" />
+        <Button
+            android:text="حول التطبيق"
+            android:layout_width="match_parent"
+            android:layout_height="@android:dimen/notification_large_icon_height"
+            android:id="@+id/About"
+            android:backgroundTint="#ffffb900"
+            android:backgroundTintMode="src_atop"
+            android:layout_margin="5dp"
+            android:background="#FFB900" />
+    </LinearLayout>
+</ScrollView>

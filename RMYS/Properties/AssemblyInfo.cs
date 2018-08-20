@@ -7,11 +7,11 @@ using Android.App;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RMYS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Remember for MY Foreverity.مشروع الكرازة 2018")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("AAB")]
 [assembly: AssemblyProduct("RMYS")]
-[assembly: AssemblyCopyright("Copyright © AAB 2018")]
+[assembly: AssemblyCopyright("جميع الحقوق محفوظة: أندرو أقلديوس بخيت © 2018. كنيسة السيدة العذراء مريم بالإسماعيلية.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

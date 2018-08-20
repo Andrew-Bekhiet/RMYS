@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text=" ذكرني بقراءة الكتاب المقدس"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:measureWithLargestChild="false">
+            <Spinner
+                android:layout_width="125.3dp"
+                android:layout_height="match_parent"
+                android:id="@+id/HBSpin" />
+            <EditText
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/HBNum"
+                android:numeric="integer"
+                android:text="1" />
+            <TextView
+                android:text=" مرة كل:"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HBT" />
+        <Button
+            android:text="السجل"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ShowH" />
+        <Button
+            android:text="إضافة إلى السجل"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/AddH" />
+        <Button
+            android:text="حفظ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HBSave" />
+        <Button
+            android:text="إلغاء"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HBCancel" />
+    </LinearLayout>
+</ScrollView>
