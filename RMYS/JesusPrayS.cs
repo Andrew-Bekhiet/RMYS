@@ -23,20 +23,21 @@ namespace RMYS
         public override void OnStart(Intent intent, int startId)
         {
             string[] JesusPrayArray = Resources.GetStringArray(Resource.Array.JesusPrayList);
-            Random RandomPray = new Random();
+            int RandomPray = new Random().Next(JesusPrayArray.Length);
 
             Intent main = new Intent(this, typeof(MainActivity));
             PendingIntent pendingMain = PendingIntent.GetActivity(this, 0, main, PendingIntentFlags.OneShot);
 
             // Instantiate the Big Text style:
             Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
-            textStyle.BigText(JesusPrayArray[RandomPray.Next(JesusPrayArray.Length)]);
+            textStyle.BigText(JesusPrayArray[RandomPray]);
 
             // Instantiate the builder and set notification elements, including pending intent:
             Notification.Builder NBuilder = new Notification.Builder(this)
                 .SetContentTitle("صلاة يسوع")
                 .SetContentIntent(pendingMain)
                 .SetAutoCancel(true)
+                .SetContentText(JesusPrayArray[RandomPray])
                 .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                 .SetSmallIcon(Resource.Drawable.Icon)
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));

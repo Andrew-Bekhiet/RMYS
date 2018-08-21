@@ -59,7 +59,7 @@ namespace RMYS
                 for (int i = 0; i < C.Count; i++, C.MoveToNext())
                 {
                     //DaysIndex 4, TimingIndex 5
-                    if (C.GetString(4).Contains("-"))
+                    if (C.GetString(1) == "K" | C.GetString(1) == "M")
                     {
                         string[] Days = C.GetString(4).Split('-');
                         for (int i2 = 0; i2 < Days.Length; i2++)
@@ -90,6 +90,7 @@ namespace RMYS
                                     // Instantiate the builder and set notification elements, including pending intent:
                                     Notification.Builder builder = new Notification.Builder(this)
                                         .SetContentTitle("ذكرني لأبديتي")
+                                        .SetAutoCancel(true)
                                         .SetContentIntent(pendingIntent)
                                         .SetContentText("هل أنت مستعد للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + C.GetString(2) + "؟")
                                         .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
@@ -129,6 +130,7 @@ namespace RMYS
                                         .SetContentIntent(pendingIntent)
                                         .SetContentText("متبقي 5 دقائق للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + C.GetString(2))
                                         .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                                        .SetAutoCancel(true)
                                         .SetSmallIcon(Resource.Drawable.Icon)
                                         .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                                     // Build the notification:
@@ -147,7 +149,7 @@ namespace RMYS
                             }
                         }
                     }
-                    else //HolyBible
+                    else if(C.GetString(1) == "HB") //HolyBible
                     {
                         if (C.GetString(5) == Now.Hour + ":" + Now.Minute)
                         {
@@ -158,6 +160,7 @@ namespace RMYS
                             Notification.Builder builder = new Notification.Builder(this)
                                 .SetContentTitle("ذكرني لأبديتي")
                                 .SetContentIntent(pendingIntent)
+                                .SetAutoCancel(true)
                                 .SetContentText("حان موعد قراءة الكتاب المقدس")
                                 .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                                 .SetSmallIcon(Resource.Drawable.Icon)

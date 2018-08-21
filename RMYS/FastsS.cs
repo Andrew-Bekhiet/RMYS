@@ -275,14 +275,18 @@ namespace RMYS
                         NotificationManager notificationManager = GetSystemService(Context.NotificationService) as NotificationManager;
                         notificationManager.Notify(4, notification);
                     }
+                    Intent intent2 = new Intent(this, typeof(MainActivity));
+                    PendingIntent PI = PendingIntent.GetActivity(this, 0, intent2, PendingIntentFlags.OneShot);
                     Notification.Builder NBuilder = new Notification.Builder(this)
                             .SetContentTitle("ذكرني لأبديتي")
                             .SetAutoCancel(true)
+                            .SetContentIntent(PI)
                             .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                             .SetSmallIcon(Resource.Drawable.Icon)
                             .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                         Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
                     
+                    NBuilder.SetContentText("اليوم صوم:...");
                     if (Today.CompareTo(RiseT) < 0)
                     {
                         if (Today.CompareTo(RiseT.AddDays(-7)) >= 0 & Today.CompareTo(RiseT) != 0 & Fasts.Contains("الآلام"))

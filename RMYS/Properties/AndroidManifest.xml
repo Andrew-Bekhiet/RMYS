@@ -6,5 +6,6 @@
 	<service android:name=".RFService" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة ذكرني لأبديتي" android:enabled="true" />
 	<service android:name=".JesusPrayS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الصلاة السهمية" android:enabled="true" />
 	<service android:name=".FastsS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الأصوام" android:enabled="true" />
+  <service android:name=".Prayers" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الصلاة" android:enabled="true" />
 	<application android:label="ذكرني لأبديتي" android:icon="@drawable/Icon"></application>
 </manifest>

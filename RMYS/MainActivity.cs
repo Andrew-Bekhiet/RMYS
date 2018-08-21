@@ -615,6 +615,7 @@ namespace RMYS
                                             Notification.Builder builder = new Notification.Builder(this)
                                                     .SetContentTitle("ذكرني لأبديتي")
                                                     .SetContentIntent(pendingIntent)
+                                                    .SetAutoCancel(true)
                                                     .SetContentText("هل أنت مستعد للذهاب إلى " + SIF("إجتماع ", !NMName.Text.Contains("إجتماع") & !NMName.Text.Contains("اجتماع") & type == "M") + SIF("قداس ", !NMName.Text.Contains("قداس") & type == "K") + NMName.Text)
                                                     .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                                                     .SetSmallIcon(Resource.Drawable.Icon)
@@ -652,6 +653,7 @@ namespace RMYS
                                                     .SetContentTitle("ذكرني لأبديتي")
                                                     .SetContentIntent(pendingIntent)
                                                     .SetContentText("متبقي 5 دقائق للذهاب إلى " + SIF("إجتماع ", !NMName.Text.Contains("إجتماع") & !NMName.Text.Contains("اجتماع") & type == "M") + SIF("قداس ", !NMName.Text.Contains("قداس") & type == "K") + NMName.Text)
+                                                    .SetAutoCancel(true)
                                                     .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                                                     .SetSmallIcon(Resource.Drawable.Icon)
                                                     .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
@@ -1085,7 +1087,7 @@ namespace RMYS
 
                             PalarmMgr.Cancel(Ppending);
                             PalarmMgr.SetRepeating(AlarmType.RtcWakeup, Pcal.TimeInMillis, 60 * 60 * 1000, Ppending);
-
+                            this.StartService(PIntent);
                         }
 
                         Intent JPIntent = new Intent(this, typeof(JesusPrayS));
