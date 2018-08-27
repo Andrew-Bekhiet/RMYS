@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using static System.DateTime;
 using Android.Media;
 
@@ -30,11 +21,15 @@ namespace RMYS
         {
             base.OnCreate();
         }
+#pragma warning disable CS0672 // Member overrides obsolete member
+#pragma warning disable CS0618 // Type or member is obsolete
         public override void OnStart(Intent intent, int startId)
         {
             base.OnStart(intent, startId);
-            Database DB = new Database("DB", 0);
-            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+#pragma warning restore CS0672 // Member overrides obsolete member
+#pragma warning restore CS0618 // Type or member is obsolete
+            Database DB = new Database("DB", 1);
+            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
             DB.DBCursor.MoveToFirst();
             string Prayers = DB.DBCursor.GetString(2);
             bool Continue = true;
@@ -43,7 +38,7 @@ namespace RMYS
             PendingIntent pendingIntent = PendingIntent.GetActivity(this, 77, intent2, PendingIntentFlags.OneShot);
 
             Notification.Builder builder = new Notification.Builder(this)
-                    .SetContentTitle("ذكرني لأبديتي")
+                    .SetContentTitle("كونوا مستعدين")
                     .SetContentIntent(pendingIntent)
                     .SetAutoCancel(true)
                     .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
@@ -53,55 +48,55 @@ namespace RMYS
 
             if (Prayers.Contains("باكر") & Now.Hour == 7)
             {
-                builder.SetContentText("حان موعد صلاة باكر");
+                builder.SetContentText("الآن ... صلاة باكر");
                 textStyle.BigText("صلاة باكر من النهار المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if(Prayers.Contains("الساعة الثالثة") & Now.Hour == 9)
             {
-                builder.SetContentText("حان موعد صلاة الساعة الثالثة");
+                builder.SetContentText("الآن ... صلاة الساعة الثالثة");
                 textStyle.BigText("تسبحة الساعة الثالثة من النهار المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("الساعة السادسة") & Now.Hour == 12)
             {
-                builder.SetContentText("حان موعد صلاة الساعة السادسة");
+                builder.SetContentText("الآن ... صلاة الساعة السادسة");
                 textStyle.BigText("تسبحة الساعة السادسة من النهار المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("الساعة التاسعة") & Now.Hour == 15)
             {
-                builder.SetContentText("حان موعد صلاة الساعة التاسعة");
+                builder.SetContentText("الآن ... صلاة الساعة التاسعة");
                 textStyle.BigText("تسبحة الساعة التاسعة من النهار المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("الغروب") & Now.Hour == 17)
             {
-                builder.SetContentText("حان موعد صلاة الغروب");
+                builder.SetContentText("الآن ... صلاة الغروب");
                 textStyle.BigText("تسبحة الغروب من اليوم المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("النوم") & Now.Hour == 18)
             {
-                builder.SetContentText("حان موعد صلاة النوم");
+                builder.SetContentText("الآن ... صلاة النوم");
                 textStyle.BigText("تسبحة النوم من اليوم المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("الخدمة الأولى") & Now.Hour == 0)
             {
-                builder.SetContentText("حان موعد صلاة نصف الليل: الخدمة الأولى");
+                builder.SetContentText("الآن ... صلاة نصف الليل: الخدمة الأولى");
                 textStyle.BigText("تسبحة نصف الليل من اليوم المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("الخدمة الثانية") & Now.Hour == 1)
             {
-                builder.SetContentText("حان موعد صلاة نصف الليل: الخدمة الثانية");
+                builder.SetContentText("الآن ... صلاة نصف الليل: الخدمة الثانية");
                 textStyle.BigText("تسبحة نصف الليل المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }
             else if (Prayers.Contains("الخدمة الثالثة") & Now.Hour == 2)
             {
-                builder.SetContentText("حان موعد صلاة نصف الليل: الخدمة الثالثة");
+                builder.SetContentText("الآن ... صلاة نصف الليل: الخدمة الثالثة");
                 textStyle.BigText("تسبحة نصف الليل المبارك أقدمها للمسيح ملكي وإلهي وأرجوه أن يغفر لي خاطاياي.");
                 textStyle.SetSummaryText("عدد مزامير الصلاة: " + DB.DBCursor.GetString(6));
             }

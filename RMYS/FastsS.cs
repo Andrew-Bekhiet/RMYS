@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using static System.DateTime;
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Android.Media;
 using Android.Util;
@@ -41,8 +35,8 @@ namespace RMYS
             base.OnStart(intent, startId);
 #pragma warning restore CS0672 // Member overrides obsolete member
 #pragma warning restore CS0618 // Type or member is obslolete
-            Database DB = new Database("DB", 0);
-            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+            Database DB = new Database("DB", 1);
+            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
             if (DB.DBCursor.Count != 0)
             {
                 DB.DBCursor.MoveToFirst();
@@ -252,7 +246,7 @@ namespace RMYS
                     if (Fasts.Contains("الأربعاء") & Today.DayOfWeek == DayOfWeek.Wednesday)
                     {
                         Notification.Builder builder = new Notification.Builder(this)
-                            .SetContentTitle("ذكرني لأبديتي")
+                            .SetContentTitle("كونوا مستعدين")
                             .SetAutoCancel(true)
                             .SetContentText("اليوم صوم الأربعاء")
                             .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
@@ -265,7 +259,7 @@ namespace RMYS
                     else if (Fasts.Contains("الجمعة") & Today.DayOfWeek == DayOfWeek.Friday)
                     {
                         Notification.Builder builder = new Notification.Builder(this)
-                            .SetContentTitle("ذكرني لأبديتي")
+                            .SetContentTitle("كونوا مستعدين")
                             .SetAutoCancel(true)
                             .SetContentText("اليوم صوم الجمعة")
                             .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
@@ -278,14 +272,14 @@ namespace RMYS
                     Intent intent2 = new Intent(this, typeof(MainActivity));
                     PendingIntent PI = PendingIntent.GetActivity(this, 0, intent2, PendingIntentFlags.OneShot);
                     Notification.Builder NBuilder = new Notification.Builder(this)
-                            .SetContentTitle("ذكرني لأبديتي")
+                            .SetContentTitle("كونوا مستعدين")
                             .SetAutoCancel(true)
                             .SetContentIntent(PI)
                             .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                             .SetSmallIcon(Resource.Drawable.Icon)
                             .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                         Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
-                    
+                    bool Continue = true;
                     NBuilder.SetContentText("اليوم صوم:...");
                     if (Today.CompareTo(RiseT) < 0)
                     {
@@ -315,12 +309,12 @@ namespace RMYS
                         textStyle.BigText("اليوم صوم السيدة العذراء مريم , صوم من الدرجة الثانية , الميطانيات: " + SIF("نعم", DB.DBCursor.GetString(3) == bool.TrueString) + SIF("لا", DB.DBCursor.GetString(3) == bool.FalseString));
                         textStyle.SetSummaryText("اليوم صوم السيدة العذراء مريم");
                     }
-                    else if (CopticYear % 4 == 0 & Today.CompareTo(new DateTime(Now.Year, 11, 11).AddDays(15)) >= 0 & Today.CompareTo(new DateTime(Now.Year, 1, 6)) <= 0 & Fasts.Contains("صوم الميلاد")) //16 هاتور
+                    else if (CopticYear % 4 == 0 & Today.CompareTo(new DateTime(Now.Year, 11, 11).AddDays(15)) >= 0 & Today.CompareTo(new DateTime(Now.Year + 1, 1, 6)) <= 0 & Fasts.Contains("صوم الميلاد")) //16 هاتور
                     {
                         textStyle.BigText("اليوم صوم الميلاد , صوم من الدرجة الثانية , الميطانيات: " + SIF("نعم", DB.DBCursor.GetString(3) == bool.TrueString) + SIF("لا", DB.DBCursor.GetString(3) == bool.FalseString));
                         textStyle.SetSummaryText("اليوم صوم الميلاد");
                     }
-                    else if (CopticYear % 4 != 0 & Today.CompareTo(new DateTime(Now.Year, 11, 10).AddDays(15)) >= 0 & Today.CompareTo(new DateTime(Now.Year, 1, 6)) <= 0 & Fasts.Contains("صوم الميلاد"))  //16 هاتور
+                    else if (CopticYear % 4 != 0 & Today.CompareTo(new DateTime(Now.Year, 11, 10).AddDays(15)) >= 0 & Today.CompareTo(new DateTime(Now.Year + 1, 1, 6)) <= 0 & Fasts.Contains("صوم الميلاد"))  //16 هاتور
                     {
                         textStyle.BigText("اليوم صوم الميلاد , صوم من الدرجة الثانية , الميطانيات: " + SIF("نعم", DB.DBCursor.GetString(3) == bool.TrueString) + SIF("لا", DB.DBCursor.GetString(3) == bool.FalseString));
                         textStyle.SetSummaryText("اليوم صوم الميلاد");
@@ -340,10 +334,17 @@ namespace RMYS
                         textStyle.BigText("اليوم صوم برمون الغطاس , صوم من الدرجة الأولى , الميطانيات: " + SIF("نعم", DB.DBCursor.GetString(3) == bool.TrueString) + SIF("لا", DB.DBCursor.GetString(3) == bool.FalseString));
                         textStyle.SetSummaryText("اليوم صوم برمون الغطاس");
                     }
-                    NBuilder.SetStyle(textStyle);
-                    Notification N = NBuilder.Build();
-                    NotificationManager NManager = GetSystemService(Context.NotificationService) as NotificationManager;
-                    NManager.Notify(5, N);
+                    else
+                    {
+                        Continue = false;
+                    }
+                    if (Continue)
+                    {
+                        NBuilder.SetStyle(textStyle);
+                        Notification N = NBuilder.Build();
+                        NotificationManager NManager = GetSystemService(Context.NotificationService) as NotificationManager;
+                        NManager.Notify(5, N); 
+                    }
                 }
             }
         }

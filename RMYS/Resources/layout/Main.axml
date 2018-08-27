@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/logo3"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -10,7 +11,8 @@
         android:minWidth="25px"
         android:minHeight="25px"
         android:textAlignment="inherit"
-        android:textDirection="rtl">
+        android:textDirection="rtl"
+        android:gravity="center">
         <Button
             android:text="الإجتماعات"
             android:layout_width="match_parent"
@@ -19,7 +21,9 @@
             android:layout_height="@android:dimen/notification_large_icon_height"
             android:background="#00CC6A"
             android:backgroundTintMode="src_atop"
-            android:layout_margin="5dp" />
+            android:layout_margin="7dp"
+            android:drawableRight="@drawable/meeting"
+            android:padding="6dp" />
         <Button
             android:text="القداسات"
             android:layout_width="match_parent"
@@ -27,8 +31,10 @@
             android:id="@+id/Kodas"
             android:backgroundTint="#ff00b7c3"
             android:background="#00B7C3"
-            android:layout_margin="5dp"
-            android:backgroundTintMode="src_atop" />
+            android:layout_margin="7dp"
+            android:backgroundTintMode="src_atop"
+            android:drawableRight="@drawable/kodas"
+            android:padding="6dp" />
         <Button
             android:text="قراءة الكتاب المقدس"
             android:layout_width="match_parent"
@@ -36,8 +42,10 @@
             android:id="@+id/HolyB"
             android:backgroundTint="#ffca5010"
             android:backgroundTintMode="src_atop"
-            android:layout_margin="5dp"
-            android:background="#CA5010" />
+            android:layout_margin="7dp"
+            android:background="#CA5010"
+            android:drawableRight="@drawable/hb"
+            android:padding="6dp" />
         <Button
             android:text="القانون الروحي"
             android:layout_width="match_parent"
@@ -45,8 +53,10 @@
             android:id="@+id/SLaw"
             android:backgroundTint="#ff744da9"
             android:backgroundTintMode="src_atop"
-            android:layout_margin="5dp"
-            android:background="#744DA9" />
+            android:layout_margin="7dp"
+            android:background="#744DA9"
+            android:drawableRight="@drawable/sl"
+            android:padding="6dp" />
         <Button
             android:text="حول التطبيق"
             android:layout_width="match_parent"
@@ -54,7 +64,9 @@
             android:id="@+id/About"
             android:backgroundTint="#ffffb900"
             android:backgroundTintMode="src_atop"
-            android:layout_margin="5dp"
-            android:background="#FFB900" />
+            android:layout_margin="7dp"
+            android:background="#FFB900"
+            android:drawableRight="@drawable/about"
+            android:padding="6dp" />
     </LinearLayout>
 </ScrollView>

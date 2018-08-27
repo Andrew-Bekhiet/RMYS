@@ -2,14 +2,11 @@
 using System;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using static RMYS.Resource;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using System.Threading;
 using Android.Util;
-using Android.Provider;
 using System.IO;
 using Java.Util;
 using static System.DateTime;
@@ -18,7 +15,7 @@ using Android.Animation;
 
 namespace RMYS
 {
-    [Activity(Label = "ذكرني لأبديتي", Theme = "@android:style/Theme.Holo.Light.NoActionBar", MainLauncher = true, Icon = "@drawable/Icon")]
+    [Activity(Label = "كونوا مستعدين", Theme = "@android:style/Theme.Holo.Light.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/Icon")]
     [System.Runtime.InteropServices.Guid("30F89535-5D12-4C3E-9197-FBC0ACFD2B74")]
     public class MainActivity : Activity
     {
@@ -35,32 +32,57 @@ namespace RMYS
         bool FM = true;
         protected override void OnCreate(Bundle bundle)
         {
-            RequestWindowFeature(WindowFeatures.NoTitle);
-            base.OnCreate(bundle);
-            if (!File.Exists(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DB.db")))
+            try
             {
-                Intent RFIntent = new Intent(this, typeof(RFService));
-                PendingIntent RFpending = PendingIntent.GetService(this, 3, RFIntent, PendingIntentFlags.UpdateCurrent);
+                RequestWindowFeature(WindowFeatures.NoTitle);
+                base.OnCreate(bundle);
+                SetContentView(Layout.Main);
+                if (!File.Exists(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DB.db")))
+                {
+                    Intent RFIntent = new Intent(this, typeof(MKS));
+                    PendingIntent RFpending = PendingIntent.GetService(this, 3, RFIntent, PendingIntentFlags.UpdateCurrent);
 
-                AlarmManager RFalarmMgr = (AlarmManager)GetSystemService(AlarmService);
+                    AlarmManager RFalarmMgr = (AlarmManager)GetSystemService(AlarmService);
 
-                Calendar cal = Calendar.GetInstance(Java.Util.TimeZone.Default);
-                cal.Set(CalendarField.Year, DateTime.Now.Year);
-                cal.Set(CalendarField.Month, DateTime.Now.Month - 1);
-                cal.Set(CalendarField.DayOfMonth, DateTime.Now.Day);
-                cal.Set(CalendarField.HourOfDay, 0);
-                cal.Set(CalendarField.Minute, 0);
-                cal.Set(CalendarField.Second, 0);
-                cal.Set(CalendarField.Millisecond, 0);
+                    Calendar cal = Calendar.GetInstance(Java.Util.TimeZone.Default);
+                    cal.Set(CalendarField.Year, Now.Year);
+                    cal.Set(CalendarField.Month, Now.Month - 1);
+                    cal.Set(CalendarField.DayOfMonth, Now.Day);
+                    cal.Set(CalendarField.HourOfDay, 0);
+                    cal.Set(CalendarField.Minute, 0);
+                    cal.Set(CalendarField.Second, 0);
+                    cal.Set(CalendarField.Millisecond, 0);
 
-                RFalarmMgr.SetRepeating(AlarmType.RtcWakeup, cal.TimeInMillis, 24 * 60 * 60 * 1000, RFpending); //24 * 60 * 60 * 1000
-            }
-            DB = new Database("DB", 1);
+                    RFalarmMgr.SetRepeating(AlarmType.RtcWakeup, cal.TimeInMillis, 24 * 60 * 60 * 1000, RFpending); //24 * 60 * 60 * 1000
+                }
+                DB.CreateOpenDatabase("DB", 1);
 #if DEBUG
-            File.Copy(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DB.db"), Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "RMYSDB.db"), true);
+                File.Copy(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DB.db"), Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "RMYSDB.db"), true);
 #endif
-            SetContentView(Layout.Main);
-            //Msgbox(DateTime.Parse(C.GetString(5).Split(':')[1]).AddMinutes(30), ToastLength.Long);
+                
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("ccess") & ex.Message.Contains("enied"))
+                {
+                    LayoutInflater layoutInflater = LayoutInflater.From(this);
+                    TextView view = new TextView(this)
+                    {
+                        Text = "برجاء إعطاء البرنامج إذن الدخول لوحدة التخزين."
+                    };
+                    view.SetTextAppearance(this, Android.Resource.Style.TextAppearanceLarge);
+                    AlertDialog.Builder alertbuilder = new AlertDialog.Builder(this);
+                    alertbuilder.SetView(view);
+                    alertbuilder.SetCancelable(false);
+                    AlertDialog dialog = alertbuilder.Create();
+                    dialog.Show();
+                }
+                else
+                {
+                    Msgbox(ex.Message, ToastLength.Long); 
+                }
+            }
+            //Msgbox(Parse(C.GetString(5).Split(':')[1]).AddMinutes(30), ToastLength.Long);
         }
         public string Tosql(string date)
         {
@@ -84,24 +106,6 @@ namespace RMYS
                 return date;
             }
         }
-        public int IIF(int i, bool b)
-        {
-            if (b)
-            {
-                return i;
-            }
-            else
-            {
-                if (i == 0)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
         public string SIF(string s, bool b)
         {
             if (b)
@@ -120,17 +124,16 @@ namespace RMYS
             SetContentView(ResId);
         }
 
-
-        private void M_Click(string v)
+        private void M_Click(object sender, EventArgs e)
         {
-            DB.CreateOpenDatabase("DB", 0);
-            Android.Database.ICursor C = DB.GetRecordCursor(0, "_id", "ASC");
-            C.MoveToPosition(int.Parse(v) - 1);
-            Data[0] = C.GetString(2);
-            Data[1] = C.GetString(3);
-            Data[2] = C.GetString(4);
-            Data[3] = C.GetString(5);
-            Data[4] = C.GetString(0);
+            DB.CreateOpenDatabase("DB", 1);
+            DB.DBCursor = DB.GetRecordCursor("ID", ((TextView)sender).Tag.ToString(), 1);
+            DB.DBCursor.MoveToFirst();
+            Data[0] = DB.DBCursor.GetString(2);
+            Data[1] = DB.DBCursor.GetString(3);
+            Data[2] = DB.DBCursor.GetString(4);
+            Data[3] = DB.DBCursor.GetString(5);
+            Data[4] = DB.DBCursor.GetString(0);
             SetContentView(Layout.AddM, "AddM");
         }
 
@@ -225,7 +228,7 @@ namespace RMYS
 
             try
             {
-                Android.Database.ICursor C = DB.GetRecordCursor(0, "_id", "ASC");
+                Android.Database.ICursor C = DB.GetRecordCursor(1, "ID", "ASC");
                 C.MoveToFirst();
                 for (int i = 0; i < Ms.Length; i += 5)
                 {
@@ -268,7 +271,7 @@ namespace RMYS
                 if (AP2 == "Main")
                 {
                     DB = new Database("DB", 2);
-                    DB = new Database("DB", 0);
+                    DB = new Database("DB", 1);
                     Button Meet = FindViewById<Button>(Id.Meet);
                     Button Kodas = FindViewById<Button>(Id.Kodas);
                     Button HolyB = FindViewById<Button>(Id.HolyB);
@@ -307,22 +310,34 @@ namespace RMYS
                         SetContentView(Layout.AddM, "AddM");
                     };
                     Android.Database.ICursor C;
-                    DB.CreateOpenDatabase("DB", 0);
-                    C = DB.GetRecordCursor(0, SMOrder[0], SMOrder[1]);
+                    DB.CreateOpenDatabase("DB", 1);
+                    C = DB.GetRecordCursor(1, SMOrder[0], SMOrder[1]);
                     bool b = true;
-                    TextView MName = FindViewById<TextView>(Id.MName);
-                    TextView MPlace = FindViewById<TextView>(Id.MPlace);
-                    TextView MDays = FindViewById<TextView>(Id.MDays);
-                    TextView MTiming = FindViewById<TextView>(Id.MTiming);
-                    MName.Visibility = ViewStates.Gone;
-                    MPlace.Visibility = ViewStates.Gone;
-                    MDays.Visibility = ViewStates.Gone;
-                    MTiming.Visibility = ViewStates.Gone;
+                    using (TextView MName = FindViewById<TextView>(Id.MName))
+                    {
+                        MName.Visibility = ViewStates.Gone;
+                    }
+                    using (TextView MPlace = FindViewById<TextView>(Id.MPlace))
+                    {
+                        MPlace.Visibility = ViewStates.Gone;
+                    }
+                    using (TextView MDays = FindViewById<TextView>(Id.MDays))
+                    {
+                        MDays.Visibility = ViewStates.Gone;
+                    }
+                    using (TextView MTiming = FindViewById<TextView>(Id.MTiming))
+                    {
+                        MTiming.Visibility = ViewStates.Gone;
+                    }
                     if (C != null & C.Count > 0)
                     {
                         C.MoveToFirst();
                         for (int i = 0; i < C.Count; i++)
                         {
+                            TextView MName;
+                            TextView MPlace;
+                            TextView MDays;
+                            TextView MTiming;
                             try
                             {
                                 C.MoveToPosition(i);
@@ -364,10 +379,10 @@ namespace RMYS
                                     MDays.Tag = Tag;
                                     MTiming.Tag = Tag;
 
-                                    MName.Click += delegate { M_Click(MName.Tag.ToString()); };
-                                    MPlace.Click += delegate { M_Click(MPlace.Tag.ToString()); };
-                                    MDays.Click += delegate { M_Click(MDays.Tag.ToString()); };
-                                    MTiming.Click += delegate { M_Click(MTiming.Tag.ToString()); };
+                                    MName.Click += M_Click;
+                                    MPlace.Click += M_Click;
+                                    MDays.Click += M_Click;
+                                    MTiming.Click += M_Click;
                                 } //Duplicate
                                 else if (C.GetString(1) == type)
                                 {
@@ -426,10 +441,10 @@ namespace RMYS
 
                                     MLL.AddView(S, new LinearLayout.LayoutParams(22, 8));
 
-                                    MName.Click += delegate { M_Click(MName.Tag.ToString()); };
-                                    MPlace.Click += delegate { M_Click(MPlace.Tag.ToString()); };
-                                    MDays.Click += delegate { M_Click(MDays.Tag.ToString()); };
-                                    MTiming.Click += delegate { M_Click(MTiming.Tag.ToString()); };
+                                    MName.Click += M_Click;
+                                    MPlace.Click += M_Click;
+                                    MDays.Click += M_Click;
+                                    MTiming.Click += M_Click;
                                 }
                                 else
                                 {
@@ -473,19 +488,28 @@ namespace RMYS
                     }
                     else
                     {
-                        MName = FindViewById<TextView>(Id.MName);
-                        MPlace = FindViewById<TextView>(Id.MPlace);
-                        MDays = FindViewById<TextView>(Id.MDays);
-                        MTiming = FindViewById<TextView>(Id.MTiming);
-                        MName.Visibility = ViewStates.Gone;
-                        MPlace.Visibility = ViewStates.Gone;
-                        MDays.Visibility = ViewStates.Gone;
-                        MTiming.Visibility = ViewStates.Gone;
+                        using (TextView MName = FindViewById<TextView>(Id.MName))
+                        {
+                            MName.Visibility = ViewStates.Gone;
+                        }
+                        using (TextView MPlace = FindViewById<TextView>(Id.MPlace))
+                        {
+                            MPlace.Visibility = ViewStates.Gone;
+                        }
+                        using (TextView MDays = FindViewById<TextView>(Id.MDays))
+                        {
+                            MDays.Visibility = ViewStates.Gone;
+                        }
+                        using (TextView MTiming = FindViewById<TextView>(Id.MTiming))
+                        {
+                            MTiming.Visibility = ViewStates.Gone;
+                        }
                     }
                 }
                 else if (AP2 == "AddM")
                 {
                     LinearLayout NMLL = FindViewById<LinearLayout>(Id.NMLL);
+                    TextView WDD = FindViewById<TextView>(Id.WDD);
                     Button NMSave = FindViewById<Button>(Id.NMSave);
                     Button DeleteM = FindViewById<Button>(Id.DeleteM);
                     Button Cancel = FindViewById<Button>(Id.NMCancel);
@@ -523,14 +547,42 @@ namespace RMYS
                     {
                         DeleteM.Visibility = ViewStates.Gone;
                     }
-                    Cancel.Click += delegate { SetContentView(Layout.Meetings, "AddM"); };
+                    WDD.Click += delegate
+                    {
+                        if (NMLL.Visibility.Equals(ViewStates.Gone))
+                        {
+                            //set Visible
+                            NMLL.Visibility = ViewStates.Visible;
+                            int widthSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            int heightSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            NMLL.Measure(widthSpec, heightSpec);
+
+                            ValueAnimator mAnimator = SlideAnimator(0, NMLL.MeasuredHeight, NMLL);
+                            mAnimator.Start();
+
+                        }
+                        else
+                        {
+                            //collapse();
+                            int finalHeight = NMLL.Height;
+
+                            ValueAnimator mAnimator = SlideAnimator(finalHeight, 0, NMLL);
+                            mAnimator.Start();
+                            mAnimator.AnimationEnd += (object IntentSender, EventArgs arg) =>
+                            {
+                                NMLL.Visibility = ViewStates.Gone;
+                            };
+
+                        }
+                    };
+                    Cancel.Click += delegate { OnBackPressed(); };
                     int count = 1;
                     DeleteM.Click += delegate
                     {
                         if (count == 0)
                         {
-                            DB.DeleteRecord(int.Parse(Data[4]), 0);
-                            SetContentView(Layout.Meetings, "Meetings");
+                            DB.DeleteRecord(int.Parse(Data[4]), 1);
+                            OnBackPressed();
                         }
                         else
                         {
@@ -549,7 +601,7 @@ namespace RMYS
                                 Days += D.Text + "-";
                             }
                         }
-                        Android.Database.ICursor C = DB.GetRecordCursor(0, "Name", "ASC");
+                        Android.Database.ICursor C = DB.GetRecordCursor(1, "Name", "ASC");
                         C.MoveToFirst();
                         //AddRecord(int id, string Type, string Name, string Place, string Days, string Timing, string Customs)
 
@@ -557,7 +609,7 @@ namespace RMYS
                         {
                             Msgbox("يجب تحديد يوم واحد على الأقل!", ToastLength.Short);
                         }
-                        if (NMName.Text == "" | NMPlace.Text == "")
+                        else if (NMName.Text == "" | NMPlace.Text == "")
                         {
                             Msgbox("يجب كتابة اسم الإجتماع ومكانه!", ToastLength.Short);
                         }
@@ -586,26 +638,27 @@ namespace RMYS
                                 Toast.MakeText(this, DB.Message, ToastLength.Short).Show();
                                 #region "Check"
                                 string[] Days2 = Days.Remove(Days.Length - 1).Split('-');
+                                StartService(new Intent(this, typeof(MKS)));
                                 for (int i2 = 0; i2 < Days2.Length; i2++)
                                 {
                                     if (Days2[i2] == new DateTime(Now.Year, Now.Month, Now.Day).ToString("dddd", new System.Globalization.CultureInfo("ar-Eg")))
                                     {
-                                        if (DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm") != Now.Hour + ":" + Now.Minute & DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm") != Now.Hour + ":" + Now.Minute)
+                                        if (Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm") != Now.Hour + ":" + Now.Minute & Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm") != Now.Hour + ":" + Now.Minute)
                                         {
-                                            Intent wake = new Intent(Application.Context, typeof(RFService));
+                                            Intent wake = new Intent(Application.Context, typeof(MKS));
                                             PendingIntent pending = PendingIntent.GetService(Application.Context, 4, wake, PendingIntentFlags.UpdateCurrent);
 
                                             AlarmManager alarmMgr = (AlarmManager)GetSystemService(AlarmService);
 
                                             Calendar cal = Calendar.GetInstance(Java.Util.TimeZone.Default);
-                                            cal.Set(Now.Year, Now.Month - 1, Now.Day, int.Parse(DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm").Split(':')[0]), int.Parse(DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm").Split(':')[1]));
+                                            cal.Set(Now.Year, Now.Month - 1, Now.Day, int.Parse(Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm").Split(':')[0]), int.Parse(Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm").Split(':')[1]));
 
                                             alarmMgr.Set(AlarmType.RtcWakeup, cal.TimeInMillis, pending);
                                             //#if DEBUG
                                             //                                Toast.MakeText(this, "1st Time", ToastLength.Long).Show();
                                             //#endif
                                         }
-                                        else if (DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm") == Now.Hour + ":" + Now.Minute)
+                                        else if (Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-30).ToString("HH:mm") == Now.Hour + ":" + Now.Minute)
                                         {
                                             // Set up an intent so that tapping the notifications returns to this app:
                                             Intent intent2 = new Intent(this, typeof(MainActivity));
@@ -613,10 +666,10 @@ namespace RMYS
 
                                             // Instantiate the builder and set notification elements, including pending intent:
                                             Notification.Builder builder = new Notification.Builder(this)
-                                                    .SetContentTitle("ذكرني لأبديتي")
+                                                    .SetContentTitle("كونوا مستعدين")
                                                     .SetContentIntent(pendingIntent)
                                                     .SetAutoCancel(true)
-                                                    .SetContentText("هل أنت مستعد للذهاب إلى " + SIF("إجتماع ", !NMName.Text.Contains("إجتماع") & !NMName.Text.Contains("اجتماع") & type == "M") + SIF("قداس ", !NMName.Text.Contains("قداس") & type == "K") + NMName.Text)
+                                                    .SetContentText("هل أنت مستعد للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + " " + C.GetString(2) + "في " + C.GetString(3) + "؟")
                                                     .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                                                     .SetSmallIcon(Resource.Drawable.Icon)
                                                     .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
@@ -630,29 +683,29 @@ namespace RMYS
                                             // Publish the notification:
                                             notificationManager.Notify(0, notification);
 
-                                            Intent wake = new Intent(Application.Context, typeof(RFService));
+                                            Intent wake = new Intent(Application.Context, typeof(MKS));
                                             PendingIntent pending = PendingIntent.GetService(Application.Context, 4, wake, PendingIntentFlags.UpdateCurrent);
 
                                             AlarmManager alarmMgr = (AlarmManager)GetSystemService(AlarmService);
 
                                             Calendar cal = Calendar.GetInstance(Java.Util.TimeZone.Default);
-                                            cal.Set(Now.Year, Now.Month - 1, Now.Day, int.Parse(DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm").Split(':')[0]), int.Parse(DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm").Split(':')[1]));
+                                            cal.Set(Now.Year, Now.Month - 1, Now.Day, int.Parse(Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm").Split(':')[0]), int.Parse(Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm").Split(':')[1]));
 
                                             alarmMgr.Set(AlarmType.RtcWakeup, cal.TimeInMillis, pending);
                                             //#if DEBUG
                                             //                                Toast.MakeText(this, "2nd Time", ToastLength.Long).Show();
                                             //#endif
                                         }
-                                        else if (DateTime.Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm") == Now.Hour + ":" + Now.Minute)
+                                        else if (Parse(NMTime.CurrentHour + ":" + NMTime.CurrentMinute).AddMinutes(-5).ToString("HH:mm") == Now.Hour + ":" + Now.Minute)
                                         {
                                             Intent intent2 = new Intent(this, typeof(MainActivity));
                                             PendingIntent pendingIntent = PendingIntent.GetActivity(this, 1, intent2, PendingIntentFlags.OneShot);
 
                                             // Instantiate the builder and set notification elements, including pending intent:
                                             Notification.Builder builder = new Notification.Builder(this)
-                                                    .SetContentTitle("ذكرني لأبديتي")
+                                                    .SetContentTitle("كونوا مستعدين")
                                                     .SetContentIntent(pendingIntent)
-                                                    .SetContentText("متبقي 5 دقائق للذهاب إلى " + SIF("إجتماع ", !NMName.Text.Contains("إجتماع") & !NMName.Text.Contains("اجتماع") & type == "M") + SIF("قداس ", !NMName.Text.Contains("قداس") & type == "K") + NMName.Text)
+                                                    .SetContentText("متبقي 5 دقائق للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + " " + C.GetString(2) + "في " + C.GetString(3))
                                                     .SetAutoCancel(true)
                                                     .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
                                                     .SetSmallIcon(Resource.Drawable.Icon)
@@ -673,7 +726,7 @@ namespace RMYS
                                     }
                                 }
                                 #endregion
-                                SetContentView(Layout.Meetings, "Meetings");
+                                OnBackPressed();
                             }
                         }
                     };
@@ -684,17 +737,20 @@ namespace RMYS
                     Button AddH = FindViewById<Button>(Id.AddH);
                     Button HBSave = FindViewById<Button>(Id.HBSave);
                     Button HBCancel = FindViewById<Button>(Id.HBCancel);
+                    LinearLayout HBLL = FindViewById<LinearLayout>(Id.HBLL);
+                    TextView HWDD = FindViewById<TextView>(Id.HWDD);
                     Spinner HBSpin = FindViewById<Spinner>(Id.HBSpin);
                     TimePicker HBTime = FindViewById<TimePicker>(Id.HBT);
                     EditText HBNum = FindViewById<EditText>(Id.HBNum);
 
+                    HBLL.Visibility = ViewStates.Gone;
                     var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.HB, Android.Resource.Layout.SimpleSpinnerItem);
                     adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
                     HBSpin.Adapter = adapter;
-
-                    if (DB.GetRecordCursor("Type", "HB", 0).Count != 0)
+                    HBSpin.ItemSelected += HBSpin_ItemSelected;
+                    if (DB.GetRecordCursor("Type", "HB", 1).Count != 0)
                     {
-                        DB.DBCursor = DB.GetRecordCursor("Type", "HB", 0);
+                        DB.DBCursor = DB.GetRecordCursor("Type", "HB", 1);
                         DB.DBCursor.MoveToFirst();
                         HBTime.CurrentHour = (Java.Lang.Integer)int.Parse(DB.DBCursor.GetString(5).Split(':')[0]);
                         HBTime.CurrentMinute = (Java.Lang.Integer)int.Parse(DB.DBCursor.GetString(5).Split(':')[1]);
@@ -713,7 +769,34 @@ namespace RMYS
                         }
                     }
 
+                    HWDD.Click += delegate
+                    {
+                        if (HBLL.Visibility.Equals(ViewStates.Gone))
+                        {
+                            //set Visible
+                            HBLL.Visibility = ViewStates.Visible;
+                            int widthSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            int heightSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            HBLL.Measure(widthSpec, heightSpec);
 
+                            ValueAnimator mAnimator = SlideAnimator(0, HBLL.MeasuredHeight, HBLL);
+                            mAnimator.Start();
+
+                        }
+                        else
+                        {
+                            //collapse();
+                            int finalHeight = HBLL.Height;
+
+                            ValueAnimator mAnimator = SlideAnimator(finalHeight, 0, HBLL);
+                            mAnimator.Start();
+                            mAnimator.AnimationEnd += (object IntentSender, EventArgs arg) =>
+                            {
+                                HBLL.Visibility = ViewStates.Gone;
+                            };
+
+                        }
+                    };
                     ShowH.Click += delegate { SetContentView(Layout.HBHistory, "HBHistory"); };
                     AddH.Click += delegate
                     {
@@ -724,13 +807,13 @@ namespace RMYS
                         HData[4] = "";
                         SetContentView(Layout.HBHistoryV, "HBHistoryV");
                     };
-                    HBCancel.Click += delegate { SetContentView(Layout.Main, "Main"); };
+                    HBCancel.Click += delegate { OnBackPressed(); };
                     HBSave.Click += delegate
                     {
-                        DB.CreateOpenDatabase("DB", 0);
-                        if (DB.GetRecordCursor("Type", "HB", 0).Count == 0)
+                        DB.CreateOpenDatabase("DB", 1);
+                        if (DB.GetRecordCursor("Type", "HB", 1).Count == 0)
                         {
-                            PendingIntent pending = PendingIntent.GetService(Application.Context, 4, new Intent(Application.Context, typeof(RFService)), PendingIntentFlags.UpdateCurrent);
+                            PendingIntent pending = PendingIntent.GetService(Application.Context, 4, new Intent(Application.Context, typeof(HBS)), PendingIntentFlags.UpdateCurrent);
 
                             AlarmManager alarmMgr = (AlarmManager)GetSystemService(AlarmService);
 
@@ -753,43 +836,143 @@ namespace RMYS
                         }
                         else
                         {
-                            PendingIntent pending = PendingIntent.GetService(Application.Context, 4, new Intent(Application.Context, typeof(RFService)), PendingIntentFlags.UpdateCurrent);
+                            PendingIntent pending = PendingIntent.GetService(Application.Context, 4, new Intent(Application.Context, typeof(HBS)), PendingIntentFlags.UpdateCurrent);
                             AlarmManager alarmMgr = (AlarmManager)GetSystemService(AlarmService);
 
                             alarmMgr.Cancel(pending);
-
-                            Intent RFIntent = new Intent(this, typeof(RFService));
-                            PendingIntent RFpending = PendingIntent.GetService(this, 3, RFIntent, PendingIntentFlags.UpdateCurrent);
-
-                            AlarmManager RFalarmMgr = (AlarmManager)GetSystemService(AlarmService);
-
-                            Calendar cal = Calendar.GetInstance(Java.Util.TimeZone.Default);
-                            cal.Set(CalendarField.Year, DateTime.Now.Year);
-                            cal.Set(CalendarField.Month, DateTime.Now.Month - 1);
-                            cal.Set(CalendarField.DayOfMonth, DateTime.Now.Day);
-                            cal.Set(CalendarField.HourOfDay, 0);
-                            cal.Set(CalendarField.Minute, 0);
-                            cal.Set(CalendarField.Second, 0);
-                            cal.Set(CalendarField.Millisecond, 0);
-
-                            RFalarmMgr.SetRepeating(AlarmType.RtcWakeup, cal.TimeInMillis, 24 * 60 * 60 * 1000, RFpending); //24 * 60 * 60 * 1000
-
+                            
                             Calendar HBcal = Calendar.GetInstance(Java.Util.TimeZone.Default);
-                            HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
 
                             if (HBSpin.SelectedItemPosition == 0)
                             {
+                                HBcal.Set(Now.Year, Now.Month - 1, Now.Day, Now.Hour, (int)HBTime.CurrentMinute);
                                 alarmMgr.SetRepeating(AlarmType.RtcWakeup, HBcal.TimeInMillis, int.Parse(HBNum.Text.ToString()) * 1000 * 60 * 60, pending);
                             }
                             else if (HBSpin.SelectedItemPosition == 1)
                             {
+                                HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
                                 alarmMgr.SetRepeating(AlarmType.RtcWakeup, HBcal.TimeInMillis, int.Parse(HBNum.Text.ToString()) * 1000 * 60 * 60 * 24, pending);
                             }
                             else
                             {
+                                RadioButton Sun = FindViewById<RadioButton>(Id.HBSunday);
+                                RadioButton Mon = FindViewById<RadioButton>(Id.HBMonday);
+                                RadioButton Tue = FindViewById<RadioButton>(Id.HBTuesday);
+                                RadioButton Wed = FindViewById<RadioButton>(Id.HBWednesday);
+                                RadioButton Thu = FindViewById<RadioButton>(Id.HBThursday);
+                                RadioButton Fri = FindViewById<RadioButton>(Id.HBFriday);
+                                RadioButton Sat = FindViewById<RadioButton>(Id.HBSaturday);
+                                DateTime DT = new DateTime(2018, Now.Month, Now.Day);
+                                #region "Week"
+                                if (Sun.Checked)
+                                {
+                                    if(DT.DayOfWeek == DayOfWeek.Sunday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while(DT.DayOfWeek != DayOfWeek.Sunday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                                else if (Mon.Checked)
+                                {
+                                    if (DT.DayOfWeek == DayOfWeek.Monday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while (DT.DayOfWeek != DayOfWeek.Monday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                                else if (Tue.Checked)
+                                {
+                                    if (DT.DayOfWeek == DayOfWeek.Tuesday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while (DT.DayOfWeek != DayOfWeek.Tuesday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                                else if (Wed.Checked)
+                                {
+                                    if (DT.DayOfWeek == DayOfWeek.Wednesday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while (DT.DayOfWeek != DayOfWeek.Wednesday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                                else if (Thu.Checked)
+                                {
+                                    if (DT.DayOfWeek == DayOfWeek.Thursday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while (DT.DayOfWeek != DayOfWeek.Thursday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                                else if (Fri.Checked)
+                                {
+                                    if (DT.DayOfWeek == DayOfWeek.Friday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while (DT.DayOfWeek != DayOfWeek.Friday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                                else if (Sat.Checked)
+                                {
+                                    if (DT.DayOfWeek == DayOfWeek.Saturday)
+                                    {
+                                        HBcal.Set(Now.Year, Now.Month - 1, Now.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                    else
+                                    {
+                                        while (DT.DayOfWeek != DayOfWeek.Sunday)
+                                        {
+                                            DT = DT.AddDays(1);
+                                        }
+                                        HBcal.Set(Now.Year, Now.Month - 1, DT.Day, (int)HBTime.CurrentHour, (int)HBTime.CurrentMinute);
+                                    }
+                                }
+                            #endregion
                                 alarmMgr.SetRepeating(AlarmType.RtcWakeup, HBcal.TimeInMillis, int.Parse(HBNum.Text.ToString()) * 1000 * 60 * 60 * 24 * 7, pending);
                             }
-                            DB.DBCursor = DB.GetRecordCursor("Type", "HB", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "HB", 1);
                             DB.DBCursor.MoveToFirst();
                             DB.UpdateRecord(DB.DBCursor.GetInt(0), "HB", "HolyBible", HBNum.Text, SIF("EveryWeek", HBSpin.SelectedItemPosition == 2) + SIF("EveryDay", HBSpin.SelectedItemPosition == 1) + SIF("EveryHour", HBSpin.SelectedItemPosition == 0), HBTime.CurrentHour + ":" + HBTime.CurrentMinute, "");
                         }
@@ -901,7 +1084,7 @@ namespace RMYS
                         HDelete.Visibility = ViewStates.Gone;
                     }
 
-                    HCancel.Click += delegate { SetContentView(Layout.HolyBible, "HolyBible"); };
+                    HCancel.Click += delegate { OnBackPressed(); };
                     HSave.Click += delegate
                     {
                         DB.CreateOpenDatabase("DB", 2);
@@ -914,19 +1097,21 @@ namespace RMYS
                             DB.AddHBRecord(HTitle.Text, Tosql(HDate.Year + "-" + (HDate.Month + 1) + "-" + HDate.DayOfMonth), HVerse.Text, HVisor.Text);
                         }
                         Msgbox(DB.Message, ToastLength.Short);
-                        SetContentView(Layout.HolyBible, "HolyBible");
+                        OnBackPressed();
                     };
                     HDelete.Click += delegate
                     {
                         DB.DeleteRecord(int.Parse(HData[3]) + 1, 2);
-                        SetContentView(Layout.HBHistory, "HBHistory");
+                        OnBackPressed();
                     };
                 }
                 else if (AP2 == "SLaw")
                 {
-                    DB = new Database("DB", 0);
+                    DB = new Database("DB", 1);
                     LinearLayout SLL = FindViewById<LinearLayout>(Id.SLLL);
                     LinearLayout SLL2 = FindViewById<LinearLayout>(Id.SLLL2);
+                    LinearLayout FLL = FindViewById<LinearLayout>(Id.FaLL);
+                    LinearLayout PLL = FindViewById<LinearLayout>(Id.PLL);
                     Button HButton = FindViewById<Button>(Id.HBButton);
                     Button SaveP = FindViewById<Button>(Id.SaveP);
                     Button SaveF = FindViewById<Button>(Id.SaveF);
@@ -935,6 +1120,8 @@ namespace RMYS
                     Spinner JPSpin = FindViewById<Spinner>(Id.JPSpin);
                     TextView L1 = FindViewById<TextView>(Id.L1);
                     TextView L3 = FindViewById<TextView>(Id.L3);
+                    TextView Fast = FindViewById<TextView>(Id.Fast);
+                    TextView Pray = FindViewById<TextView>(Id.Pray);
                     EditText JPNum = FindViewById<EditText>(Id.JPLNum);
                     EditText PalNum = FindViewById<EditText>(Id.PalNum);
                     CheckBox Metaniat = FindViewById<CheckBox>(Id.Metaniat);
@@ -942,6 +1129,8 @@ namespace RMYS
                     string Fasts = "";
                     int id = -1;
 
+                    FLL.Visibility = ViewStates.Gone;
+                    PLL.Visibility = ViewStates.Gone;
                     SLL.Visibility = ViewStates.Gone;
                     SLL2.Visibility = ViewStates.Gone;
                     var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.JPray, Android.Resource.Layout.SimpleSpinnerItem);
@@ -950,9 +1139,9 @@ namespace RMYS
                     JPSpin.SetSelection(1);
 
                     //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
-                    if (DB.GetRecordCursor("Type", "SL", 0).Count != 0)
+                    if (DB.GetRecordCursor("Type", "SL", 1).Count != 0)
                     {
-                        DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                        DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                         DB.DBCursor.MoveToFirst();
                         id = DB.DBCursor.GetInt(0);
                         if (DB.DBCursor.GetString(2) != "")
@@ -1019,6 +1208,62 @@ namespace RMYS
 
                         }
                     };
+                    Fast.Click += delegate
+                    {
+                        if (FLL.Visibility.Equals(ViewStates.Gone))
+                        {
+                            //set Visible
+                            FLL.Visibility = ViewStates.Visible;
+                            int widthSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            int heightSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            FLL.Measure(widthSpec, heightSpec);
+
+                            ValueAnimator mAnimator = SlideAnimator(0, FLL.MeasuredHeight, FLL);
+                            mAnimator.Start();
+
+                        }
+                        else
+                        {
+                            //collapse();
+                            int finalHeight = FLL.Height;
+
+                            ValueAnimator mAnimator = SlideAnimator(finalHeight, 0, FLL);
+                            mAnimator.Start();
+                            mAnimator.AnimationEnd += (object IntentSender, EventArgs arg) =>
+                            {
+                                FLL.Visibility = ViewStates.Gone;
+                            };
+
+                        }
+                    };
+                    Pray.Click += delegate
+                    {
+                        if (PLL.Visibility.Equals(ViewStates.Gone))
+                        {
+                            //set Visible
+                            PLL.Visibility = ViewStates.Visible;
+                            int widthSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            int heightSpec = View.MeasureSpec.MakeMeasureSpec(0, MeasureSpecMode.Unspecified);
+                            PLL.Measure(widthSpec, heightSpec);
+
+                            ValueAnimator mAnimator = SlideAnimator(0, PLL.MeasuredHeight, PLL);
+                            mAnimator.Start();
+
+                        }
+                        else
+                        {
+                            //collapse();
+                            int finalHeight = PLL.Height;
+
+                            ValueAnimator mAnimator = SlideAnimator(finalHeight, 0, PLL);
+                            mAnimator.Start();
+                            mAnimator.AnimationEnd += (object IntentSender, EventArgs arg) =>
+                            {
+                                PLL.Visibility = ViewStates.Gone;
+                            };
+
+                        }
+                    };
                     L3.Click += delegate
                     {
                         if (SLL2.Visibility.Equals(ViewStates.Gone))
@@ -1048,13 +1293,13 @@ namespace RMYS
                         }
                     };
 
-                    SLCancel.Click += delegate { SetContentView(Layout.Main, "Main");};
+                    SLCancel.Click += delegate { OnBackPressed(); };
                     SaveP.Click += delegate
                     {
                         //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
-                        if (DB.GetRecordCursor("Type", "SL", 0).Count != 0)
+                        if (DB.GetRecordCursor("Type", "SL", 1).Count != 0)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             id = DB.DBCursor.GetInt(0);
                         }
@@ -1121,7 +1366,7 @@ namespace RMYS
                         //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
                         if (id != -1)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             DB.UpdateRecord(id, "SL", Prayers, DB.DBCursor.GetString(3), DB.DBCursor.GetString(4), JPNum.Text + "-" + JPSpin.SelectedItemPosition, PalNum.Text);
                         }
@@ -1132,9 +1377,9 @@ namespace RMYS
                     };
                     SaveF.Click += delegate
                     {
-                        if (DB.GetRecordCursor("Type", "SL", 0).Count != 0)
+                        if (DB.GetRecordCursor("Type", "SL", 1).Count != 0)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             id = DB.DBCursor.GetInt(0);
                         }
@@ -1150,7 +1395,7 @@ namespace RMYS
                         //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
                         if (id != -1)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             DB.UpdateRecord(id, "SL", DB.DBCursor.GetString(2), Metaniat.Checked.ToString(), Fasts, DB.DBCursor.GetString(5), DB.DBCursor.GetString(6));
                         }
@@ -1184,9 +1429,9 @@ namespace RMYS
                     SaveA.Click += delegate 
                     {
                         //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
-                        if (DB.GetRecordCursor("Type", "SL", 0).Count != 0)
+                        if (DB.GetRecordCursor("Type", "SL", 1).Count != 0)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             id = DB.DBCursor.GetInt(0);
                         }
@@ -1253,7 +1498,7 @@ namespace RMYS
                         //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
                         if (id != -1)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             DB.UpdateRecord(id, "SL", Prayers, DB.DBCursor.GetString(3), DB.DBCursor.GetString(4), JPNum.Text + "-" + JPSpin.SelectedItemPosition, PalNum.Text);
                         }
@@ -1261,9 +1506,9 @@ namespace RMYS
                         {
                             DB.AddRecord("SL", Prayers, "", "", JPNum.Text + "-" + JPSpin.SelectedItemPosition, PalNum.Text);
                         }
-                        if (DB.GetRecordCursor("Type", "SL", 0).Count != 0)
+                        if (DB.GetRecordCursor("Type", "SL", 1).Count != 0)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             id = DB.DBCursor.GetInt(0);
                         }
@@ -1279,7 +1524,7 @@ namespace RMYS
                         //DB.AddRecord("SL", "Baker-", "عدد مزامير كل ساعة", "صلاة يسوع", "الأصوام", "الميطانيات");
                         if (id != -1)
                         {
-                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 0);
+                            DB.DBCursor = DB.GetRecordCursor("Type", "SL", 1);
                             DB.DBCursor.MoveToFirst();
                             DB.UpdateRecord(id, "SL", DB.DBCursor.GetString(2), Metaniat.Checked.ToString(), Fasts, DB.DBCursor.GetString(5), DB.DBCursor.GetString(6));
                         }
@@ -1323,100 +1568,22 @@ namespace RMYS
             }
         }
 
-        public string ToCoptic(DateTime Date)
+        private void HBSpin_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            string NewDate = "";
-            int NewYear;
-            if(Date.CompareTo(new DateTime(Date.Year, 1, 1)) <= 0 & Date.CompareTo(new DateTime(Date.Year, 9, 11)) > 0)
+            LinearLayout HBLL = FindViewById<LinearLayout>(Id.HBLL);
+            TextView HWDD = FindViewById<TextView>(Id.HWDD);
+            Spinner HBSpin = (Spinner)sender;
+            if(HBSpin.SelectedItemPosition == 2)
             {
-                NewYear = Date.Year - 284;
-            }
-            else if (Date.CompareTo(new DateTime(Date.Year, 9, 11)) == 0)
-            {
-                if((Date.Year - 284) % 4 == 3 & Date.Year % 4 == 3)
-                {
-                    NewYear = Date.Year - 284;
-                    return "6/نسئ/" + NewYear;
-                }
-                else
-                {
-                    NewYear = Date.Year - 283;
-                    return "1/توت/" + NewYear;
-                }
+                HWDD.Visibility = ViewStates.Visible;
             }
             else
             {
-                NewYear = Date.Year - 283;
-            }
-            if (Date.Month == 4 & Date.CompareTo(new DateTime(Date.Year, 4, 9)) >= 0)
-            {
-
-            }
-            return NewDate;
-        }
-        private int DayofWeekToInt(DayOfWeek D)
-        {
-            if(D == DayOfWeek.Friday)
-            {
-                return 5;
-            }
-            else if (D == DayOfWeek.Monday)
-            {
-                return 1;
-            }
-            else if (D == DayOfWeek.Saturday)
-            {
-                return 6;
-            }
-            else if (D == DayOfWeek.Sunday)
-            {
-                return 0;
-            }
-            else if (D == DayOfWeek.Thursday)
-            {
-                return 4;
-            }
-            else if (D == DayOfWeek.Tuesday)
-            {
-                return 2;
-            }
-            else //if (D == DayOfWeek.Wednesday)
-            {
-                return 3;
+                HWDD.Visibility = ViewStates.Gone;
+                HBLL.Visibility = ViewStates.Gone;
             }
         }
 
-        public DayOfWeek IntToDayofWeek(int i)
-        {
-            if(i == 1)
-            {
-                return DayOfWeek.Monday;
-            }
-            else if (i == 2)
-            {
-                return DayOfWeek.Tuesday;
-            }
-            else if (i == 3)
-            {
-                return DayOfWeek.Wednesday;
-            }
-            else if (i == 4)
-            {
-                return DayOfWeek.Thursday;
-            }
-            else if (i == 5)
-            {
-                return DayOfWeek.Friday;
-            }
-            else if (i == 6)
-            {
-                return DayOfWeek.Saturday;
-            }
-            else
-            {
-                return DayOfWeek.Sunday;
-            }
-        }
         private ValueAnimator SlideAnimator(int start, int end, LinearLayout SLL)
         {
 

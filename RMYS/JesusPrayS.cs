@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Media;
 
 namespace RMYS
@@ -20,8 +12,13 @@ namespace RMYS
         protected override void OnHandleIntent(Intent intent) { }
 
         public override void OnCreate() { base.OnCreate(); }
+#pragma warning disable CS0672 // Member overrides obsolete member
+#pragma warning disable CS0618 // Type or member is obsolete
         public override void OnStart(Intent intent, int startId)
         {
+            base.OnStart(intent, startId);
+#pragma warning restore CS0672 // Member overrides obsolete member
+#pragma warning restore CS0618 // Type or member is obsolete
             string[] JesusPrayArray = Resources.GetStringArray(Resource.Array.JesusPrayList);
             int RandomPray = new Random().Next(JesusPrayArray.Length);
 

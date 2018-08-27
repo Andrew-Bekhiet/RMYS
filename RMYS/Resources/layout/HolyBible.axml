@@ -6,7 +6,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginRight="1dp">
         <TextView
             android:text=" ذكرني بقراءة الكتاب المقدس"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -38,25 +39,101 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/HBT" />
+        <TextView
+            android:text="أيام الأسبوع"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HWDD"
+            android:drawableLeft="@android:drawable/ic_menu_more"
+            android:layout_marginRight="1dp" />
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/HBLL">
+            <RadioGroup
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup1"
+                android:layout_marginRight="1dp">
+                <RadioButton
+                    android:text="الأحد"
+                    android:checked="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBSunday"
+                    android:tag="0" />
+                <RadioButton
+                    android:text="الإثنين"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBMonday"
+                    android:tag="1"
+                    android:checked="false" />
+                <RadioButton
+                    android:text="الثلاثاء"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBTuesday"
+                    android:tag="2" />
+                <RadioButton
+                    android:text="الأربعاء"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBWednesday"
+                    android:tag="3" />
+                <RadioButton
+                    android:text="الخميس"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBThursday"
+                    android:tag="4" />
+                <RadioButton
+                    android:text="الجمعة"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBFriday"
+                    android:tag="5" />
+                <RadioButton
+                    android:text="السبت"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HBSaturday"
+                    android:tag="6" />
+            </RadioGroup>
+        </LinearLayout>
         <Button
             android:text="السجل"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ShowH" />
+            android:id="@+id/ShowH"
+            android:background="#26E786"
+            android:layout_marginBottom="1dp" />
         <Button
             android:text="إضافة إلى السجل"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/AddH" />
+            android:id="@+id/AddH"
+            android:background="#4FA2E7"
+            android:layout_marginBottom="1dp" />
         <Button
             android:text="حفظ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/HBSave" />
+            android:id="@+id/HBSave"
+            android:background="#FFF200"
+            android:layout_marginBottom="1dp" />
         <Button
             android:text="إلغاء"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/HBCancel" />
+            android:id="@+id/HBCancel"
+            android:background="#E7E7E7"
+            android:layout_marginBottom="1dp" />
     </LinearLayout>
 </ScrollView>

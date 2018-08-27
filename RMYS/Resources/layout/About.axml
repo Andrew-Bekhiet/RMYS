@@ -2,25 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/logo3">
     <TextView
-        android:text="تطبيق ذكرني لأبديتي"
+        android:text="اسهروا وصلوا لئلاتدخلوا في تجربة. (مت 26 : 41)"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="4.7dp" />
+    <TextView
+        android:text="تطبيق كونوا مستعدين"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4.7dp" />
     <TextView
         android:text="تطبيق صغير لمتابعة الإجتماعات الروحية والقداسات وقراءة الكتاب المقدس والقانون الروحي"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="4.7dp" />
     <TextView
         android:text="كنيسة السيدة العذراء مريم بالإسماعيلية"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="4.7dp" />
     <TextView
         android:text="☚ جميع الحقوق محفوظة: أندرو أقلديوس بخيت © 2018. كنيسة السيدة العذراء مريم بالإسماعيلية."
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="4.7dp" />
 </LinearLayout>

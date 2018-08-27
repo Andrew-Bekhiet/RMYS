@@ -23,13 +23,21 @@
             android:id="@+id/NMPlace"
             android:hint="المكان"
             android:inputType="text" />
-        <LinearLayout
+        <TextView
+            android:text="أيام الأسبوع"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/WDD"
+            android:drawableLeft="@android:drawable/ic_menu_more" />
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
             android:orientation="vertical"
             android:minWidth="25px"
             android:minHeight="25px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/NMLL">
+            android:id="@+id/NMLL"
+            android:layout_margin="5dp">
             <CheckBox
                 android:text="الأحد"
                 android:layout_width="match_parent"
@@ -81,16 +89,22 @@
             android:text="حفظ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/NMSave" />
+            android:background="#FFF200"
+            android:id="@+id/NMSave"
+            android:layout_margin="5dp" />
         <Button
             android:text="حذف هذا الاجتماع"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/DeleteM" />
+            android:background="#ff0000"
+            android:id="@+id/DeleteM"
+            android:layout_margin="5dp" />
         <Button
             android:text="إلغاء"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/NMCancel" />
+            android:background="#E7E7E7"
+            android:id="@+id/NMCancel"
+            android:layout_margin="5dp" />
     </LinearLayout>
 </ScrollView>

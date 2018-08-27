@@ -55,17 +55,13 @@ namespace RMYS
                 sqldb = SQLiteDatabase.OpenOrCreateDatabase(sqldb_path + ".db", null);
                 sqldb_query = "PRAGMA encoding='UTF-16'";
                 sqldb.ExecSQL(sqldb_query);
-                if (tableName == 0)
+                if (tableName == 1)
                 {
-                    sqldb_query = "CREATE TABLE IF NOT EXISTS Maintbl(_id INTEGER PRIMARY KEY AUTOINCREMENT, Type VARCHAR, Name VARCHAR, Place VARCHAR, Days VARCHAR, Timing VARCHAR, Custs VARCHAR);";
-                }
-                else if (tableName == 1)
-                {
-                    sqldb_query = "CREATE TABLE IF NOT EXISTS Settings(_id INTEGER PRIMARY KEY AUTOINCREMENT, Setting VARCHAR, Valu1 VARCHAR, Valu2 VARCHAR);";
+                    sqldb_query = "CREATE TABLE IF NOT EXISTS Maintbl(ID INTEGER PRIMARY KEY AUTOINCREMENT, Type VARCHAR, Name VARCHAR, Place VARCHAR, Days VARCHAR, Timing VARCHAR, Custs VARCHAR);";
                 }
                 else if (tableName == 2)
                 {
-                    sqldb_query = "CREATE TABLE IF NOT EXISTS HolyBible(_id INTEGER PRIMARY KEY AUTOINCREMENT, Title VARCHAR, Date VARCHAR, Verse VARCHAR, Visor VARCHAR);";
+                    sqldb_query = "CREATE TABLE IF NOT EXISTS HolyBible(ID INTEGER PRIMARY KEY AUTOINCREMENT, Title VARCHAR, Date VARCHAR, Verse VARCHAR, Visor VARCHAR);";
                 }
                 sqldb.ExecSQL(sqldb_query);
                 if (!sqldb_exists)
@@ -102,22 +98,6 @@ namespace RMYS
             }
             Log.Debug("Database", sqldb_message);
         }
-        public void AddRecord(string setting, string valu1, string valu2)
-        {
-            try
-            {
-                sqldb_query = "PRAGMA encoding='UTF-16'";
-                sqldb.ExecSQL(sqldb_query);
-                sqldb_query = "INSERT INTO Settings (Setting, Valu1, Valu2) VALUES ('" + setting + "','" + valu1 + "','" + valu2 + "');";
-                sqldb.ExecSQL(sqldb_query);
-                sqldb_message = "Record saved";
-            }
-            catch (SQLiteException ex)
-            {
-                sqldb_message = ex.Message;
-            }
-            Log.Debug("Database", sqldb_message);
-        }
         public void AddHBRecord(string Title, string Date, string Verse, string Visor)
         {
             try
@@ -140,26 +120,10 @@ namespace RMYS
             {
                 sqldb_query = "PRAGMA encoding='UTF-16'";
                 sqldb.ExecSQL(sqldb_query);
-                sqldb_query = "UPDATE Maintbl SET Type = '" + Type + "',Name ='" + Name + "', Place = '" + Place + "', Days = '" + Days + "', Timing = '" + Timing + "', Custs = '" + Custs + "' WHERE _id ='" + iId + "';";
+                sqldb_query = "UPDATE Maintbl SET Type = '" + Type + "',Name ='" + Name + "', Place = '" + Place + "', Days = '" + Days + "', Timing = '" + Timing + "', Custs = '" + Custs + "' WHERE ID ='" + iId + "';";
                 sqldb.ExecSQL(sqldb_query);
                 sqldb_message = "تم الحفظ بنجاح";
 
-            }
-            catch (SQLiteException ex)
-            {
-                sqldb_message = ex.Message;
-            }
-            Log.Debug("Database", sqldb_message);
-        }
-        public void UpdateRecord(string Setting, string V1, string V2)
-        {
-            try
-            {
-                sqldb_query = "PRAGMA encoding='UTF-16'";
-                sqldb.ExecSQL(sqldb_query);
-                sqldb_query = "UPDATE Settings SET Setting = '" + Setting + "',Valu1 ='" + V1 + "', Valu2 = '" + V2 + "' WHERE Setting ='" + Setting + "';";
-                sqldb.ExecSQL(sqldb_query);
-                sqldb_message = "Record " + Setting + " updated";
             }
             catch (SQLiteException ex)
             {
@@ -173,7 +137,7 @@ namespace RMYS
             {
                 sqldb_query = "PRAGMA encoding='UTF-16'";
                 sqldb.ExecSQL(sqldb_query);
-                sqldb_query = "UPDATE HolyBible SET Title = '" + Title + "',Date = '" + Date + "',Verse ='" + Verse + "', Visor = '" + Visor + "' WHERE _id ='" + id + "';";
+                sqldb_query = "UPDATE HolyBible SET Title = '" + Title + "',Date = '" + Date + "',Verse ='" + Verse + "', Visor = '" + Visor + "' WHERE ID ='" + id + "';";
                 sqldb.ExecSQL(sqldb_query);
                 sqldb_message = "تم تحديث " + Title;
             }
@@ -189,17 +153,13 @@ namespace RMYS
             {
                 sqldb_query = "PRAGMA encoding='UTF-16'";
                 sqldb.ExecSQL(sqldb_query);
-                if (tablid == 0)
+                if (tablid == 1)
                 {
-                    sqldb_query = "DELETE FROM Maintbl WHERE _id = '" + iId + "';";
-                }
-                else if (tablid == 1)
-                {
-                    sqldb_query = "DELETE FROM Settings WHERE _id = '" + iId + "';";
+                    sqldb_query = "DELETE FROM Maintbl WHERE ID LIKE '" + iId + "';";
                 }
                 else if (tablid == 2)
                 {
-                    sqldb_query = "DELETE FROM HolyBible WHERE _id = '" + iId + "';";
+                    sqldb_query = "DELETE FROM HolyBible WHERE ID LIKE '" + iId + "';";
                 }
                 sqldb.ExecSQL(sqldb_query);
                 sqldb_message = "Record " + iId + " deleted";
@@ -220,13 +180,9 @@ namespace RMYS
             {
                 sqldb_query = "PRAGMA encoding='UTF-16'";
                 sqldb.ExecSQL(sqldb_query);
-                if (tablN == 0)
+                if (tablN == 1)
                 {
                     if (cOrder == "") { sqldb_query = "SELECT* FROM Maintbl;"; } else { sqldb_query = "SELECT* FROM Maintbl ORDER BY " + cOrder + " " + mode + ";"; }
-                }
-                else if (tablN == 1)
-                {
-                    if (cOrder == "") { sqldb_query = "SELECT* FROM Settings;"; } else { sqldb_query = "SELECT* FROM Settings ORDER BY " + cOrder + " " + mode + ";"; }
                 }
                 else if (tablN == 2)
                 {
@@ -257,17 +213,13 @@ namespace RMYS
             {
                 sqldb_query = "PRAGMA encoding='UTF-16'";
                 sqldb.ExecSQL(sqldb_query);
-                if (tablN == 0)
+                if (tablN == 1)
                 {
-                    sqldb_query = "SELECT* FROM Maintbl WHERE " + sColumn + " LIKE '" + sValue + "%';";
-                }
-                else if (tablN == 1)
-                {
-                    sqldb_query = "SELECT* FROM Settings WHERE " + sColumn + " LIKE '" + sValue + "%';";
+                    sqldb_query = "SELECT* FROM Maintbl WHERE " + sColumn + " LIKE '" + sValue + "';";
                 }
                 else if (tablN == 2)
                 {
-                    sqldb_query = "SELECT* FROM HolyBible WHERE " + sColumn + " LIKE '" + sValue + "%';";
+                    sqldb_query = "SELECT* FROM HolyBible WHERE " + sColumn + " LIKE '" + sValue + "';";
                 }
                 sqldb_cursor = sqldb.RawQuery(sqldb_query, null);
                 if (sqldb_cursor.Count == 0)

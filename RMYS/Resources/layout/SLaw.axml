@@ -14,247 +14,289 @@
             android:text="الصلاة"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:drawableLeft="@android:drawable/ic_menu_more"
+            android:id="@+id/Pray" />
+        <ScrollView
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl">
-            <TextView
-                android:text="صلوات الأجبية"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/L1"
-                android:layout_centerHorizontal="true"
-                android:drawableLeft="@android:drawable/arrow_down_float" />
-            <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_marginBottom="10.0dp"
+            android:layout_margin="5dp">
+            <LinearLayout
                 android:orientation="vertical"
-                android:id="@+id/SLLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/L1"
-                android:animateLayoutChanges="true"
-                android:gravity="center"
-                tools:visibility="gone">
-                <CheckBox
-                    android:text="صلاة باكر"
+                android:id="@+id/PLL">
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/Baker" />
-                <CheckBox
-                    android:text="صلاة الساعة الثالثة"
+                    android:layoutDirection="rtl">
+                    <TextView
+                        android:text="صلوات الأجبية"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/L1"
+                        android:layout_centerHorizontal="true"
+                        android:drawableLeft="@android:drawable/ic_menu_more" />
+                    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+                        android:orientation="vertical"
+                        android:id="@+id/SLLL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/L1"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center"
+                        tools:visibility="gone">
+                        <CheckBox
+                            android:text="صلاة باكر"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Baker" />
+                        <CheckBox
+                            android:text="صلاة الساعة الثالثة"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Third" />
+                        <CheckBox
+                            android:text="صلاة الساعة السادسة"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Sixth" />
+                        <CheckBox
+                            android:text="صلاة الساعة التاسعة"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Ninth" />
+                        <CheckBox
+                            android:text="صلاة الغروب"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Sunset" />
+                        <CheckBox
+                            android:text="صلاة النوم"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Sleep" />
+                        <CheckBox
+                            android:text="صلاة نصف الليل: الخدمة الأولى"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/MN1" />
+                        <CheckBox
+                            android:text="صلاة نصف الليل: الخدمة الثانية"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/MN2" />
+                        <CheckBox
+                            android:text="صلاة نصف الليل: الخدمة الثالثة"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/MN3" />
+                    </LinearLayout>
+                    <TextView
+                        android:text="عدد مزامير كل ساعة"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/L2"
+                        android:layout_marginTop="6.7dp"
+                        android:layout_below="@id/SLLL" />
+                    <EditText
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/PalNum"
+                        android:layout_below="@id/SLLL"
+                        android:layout_toLeftOf="@id/L2"
+                        android:text="3" />
+                </RelativeLayout>
+                <TextView
+                    android:text="صلاة يسوع"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/Third" />
-                <CheckBox
-                    android:text="صلاة الساعة السادسة"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Sixth" />
-                <CheckBox
-                    android:text="صلاة الساعة التاسعة"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Ninth" />
-                <CheckBox
-                    android:text="صلاة الغروب"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Sunset" />
-                <CheckBox
-                    android:text="صلاة النوم"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Sleep" />
-                <CheckBox
-                    android:text="صلاة نصف الليل: الخدمة الأولى"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/MN1" />
-                <CheckBox
-                    android:text="صلاة نصف الليل: الخدمة الثانية"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/MN2" />
-                <CheckBox
-                    android:text="صلاة نصف الليل: الخدمة الثالثة"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/MN3" />
+                    android:id="@+id/relativeLayout1">
+                    <TextView
+                        android:text="ذكرني بصلاة يسوع(الصلاة السهمية)"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/JPL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true" />
+                    <TextView
+                        android:text="مرة كل"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/JPL2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/JPL"
+                        android:layout_alignParentRight="true" />
+                    <EditText
+                        android:inputType="number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/JPLNum"
+                        android:layout_below="@id/JPL2"
+                        android:layout_alignParentRight="true"
+                        android:text="5"
+                        android:numeric="integer" />
+                    <Spinner
+                        android:id="@+id/JPSpin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/JPL2"
+                        android:layout_toLeftOf="@id/JPLNum"
+                        android:layout_alignBottom="@id/JPLNum" />
+                </RelativeLayout>
             </LinearLayout>
-            <TextView
-                android:text="عدد مزامير كل ساعة"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:id="@+id/L2"
-                android:layout_marginTop="6.7dp"
-                android:layout_below="@id/SLLL" />
-            <EditText
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/PalNum"
-                android:layout_below="@id/SLLL"
-                android:layout_toLeftOf="@id/L2" />
-        </RelativeLayout>
-        <TextView
-            android:text="صلاة يسوع"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout1">
-            <TextView
-                android:text="ذكرني بصلاة يسوع(الصلاة السهمية)"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/JPL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
-            <TextView
-                android:text="مرة كل"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/JPL2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/JPL"
-                android:layout_alignParentRight="true" />
-            <EditText
-                android:inputType="number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/JPLNum"
-                android:layout_below="@id/JPL2"
-                android:layout_alignParentRight="true"
-                android:text="5"
-                android:numeric="integer" />
-            <Spinner
-                android:id="@+id/JPSpin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/JPL2"
-                android:layout_toLeftOf="@id/JPLNum"
-                android:layout_alignBottom="@id/JPLNum" />
-        </RelativeLayout>
+        </ScrollView>
         <Button
             android:text="حفظ الصلاة"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/SaveP" />
+            android:background="#26E786"
+            android:id="@+id/SaveP"
+            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp" />
         <Button
             android:text="قراءة الكتاب المقدس"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@android:dimen/notification_large_icon_height"
             android:id="@+id/HBButton"
             android:background="#CA5010"
             android:backgroundTint="#ffca5010"
             android:backgroundTintMode="src_in"
-            android:layout_marginTop="10.7dp" />
+            android:drawableRight="@drawable/hb"
+            android:layout_margin="5dp" />
         <TextView
             android:text="الصوم"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <RelativeLayout
+            android:layout_height="wrap_content"
+            android:id="@+id/Fast"
+            android:drawableLeft="@android:drawable/ic_menu_more" />
+        <ScrollView
+            android:orientation="vertical"
+            android:animateLayoutChanges="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layoutDirection="rtl">
-            <TextView
-                android:text="الأصوام"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/L3"
-                android:drawableLeft="@android:drawable/arrow_down_float"
-                android:layout_centerHorizontal="true" />
-            <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_margin="5dp">
+            <LinearLayout
                 android:orientation="vertical"
-                android:id="@+id/SLLL2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/L3"
-                android:animateLayoutChanges="true"
-                android:gravity="center"
-                tools:visibility="gone">
-                <CheckBox
-                    android:text="صوم يوم الأربعاء"
+                android:id="@+id/FaLL">
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/FWed" />
+                    android:layoutDirection="rtl">
+                    <TextView
+                        android:text="الأصوام"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/L3"
+                        android:drawableLeft="@android:drawable/ic_menu_more"
+                        android:layout_centerHorizontal="true" />
+                    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+                        android:orientation="vertical"
+                        android:id="@+id/SLLL2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/L3"
+                        android:animateLayoutChanges="true"
+                        android:gravity="center"
+                        tools:visibility="gone">
+                        <CheckBox
+                            android:text="صوم يوم الأربعاء"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FWed" />
+                        <CheckBox
+                            android:text="صوم يوم الجمعة"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FFri" />
+                        <CheckBox
+                            android:text="صوم الأربعين المقدسة"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FForty" />
+                        <CheckBox
+                            android:text="صوم أسبوع الآلام"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FHWeek" />
+                        <CheckBox
+                            android:text="صوم الرسل"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FSend" />
+                        <CheckBox
+                            android:text="صوم الميلاد"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FBorn" />
+                        <CheckBox
+                            android:text="صوم يونان (صوم نينوى)"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FNein" />
+                        <CheckBox
+                            android:text="صوم السيدة العذراء مريم"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FStMary" />
+                        <CheckBox
+                            android:text="برمون الميلاد"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FBBorn" />
+                        <CheckBox
+                            android:text="برمون الغطاس"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/FB3etas" />
+                    </LinearLayout>
+                </RelativeLayout>
                 <CheckBox
-                    android:text="صوم يوم الجمعة"
+                    android:text="الميطانيات"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/FFri" />
-                <CheckBox
-                    android:text="صوم الأربعين المقدسة"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FForty" />
-                <CheckBox
-                    android:text="صوم أسبوع الآلام"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FHWeek" />
-                <CheckBox
-                    android:text="صوم الرسل"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FSend" />
-                <CheckBox
-                    android:text="صوم الميلاد"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FBorn" />
-                <CheckBox
-                    android:text="صوم يونان (صوم نينوى)"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FNein" />
-                <CheckBox
-                    android:text="صوم السيدة العذراء مريم"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FStMary" />
-                <CheckBox
-                    android:text="برمون الميلاد"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FBBorn" />
-                <CheckBox
-                    android:text="برمون الغطاس"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FB3etas" />
+                    android:id="@+id/Metaniat"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginTop="10.0dp" />
             </LinearLayout>
-        </RelativeLayout>
-        <CheckBox
-            android:text="الميطانيات"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Metaniat"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_marginTop="10.0dp" />
+        </ScrollView>
         <Button
             android:text="حفظ الأصوام"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#4FA2E7"
+            android:layout_margin="5dp"
             android:id="@+id/SaveF" />
         <Button
             android:text="حفظ الكل"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFF200"
+            android:layout_margin="5dp"
             android:id="@+id/SaveA" />
         <Button
             android:text="إلغاء"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#E7E7E7"
+            android:layout_margin="5dp"
             android:id="@+id/SLCancel" />
     </LinearLayout>
 </ScrollView>

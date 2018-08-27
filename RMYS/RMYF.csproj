@@ -22,7 +22,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
     <DebugType>Full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -40,13 +40,15 @@
     <MandroidI18n>Mideast</MandroidI18n>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
+    <LangVersion>7</LangVersion>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>PdbOnly</DebugType>
     <DebugSymbols>False</DebugSymbols>
     <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
@@ -74,15 +76,22 @@
   <ItemGroup>
     <Compile Include="Database.cs" />
     <Compile Include="FastsS.cs" />
+    <Compile Include="HBS.cs" />
     <Compile Include="JesusPrayS.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="MKS.cs" />
     <Compile Include="Prayers.cs" />
+    <Compile Include="BootR.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RFService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bin\Debug\AAB.RMYF-Signed.apk" />
+    <None Include="bin\Release\AAB.RMYS-Signed.apk" />
     <None Include="GettingStarted.Xamarin" />
+    <AndroidResource Include="Resources\drawable\HB.png" />
+    <AndroidResource Include="Resources\drawable\Kodas.png" />
+    <AndroidResource Include="Resources\drawable\SL.png" />
     <AndroidResource Include="Resources\layout\HolyBible.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -136,6 +145,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="حساب عيد القيامة.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SoulLaw.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Meeting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,11 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="AAB.RMYS" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="AAB.RMYF" android:versionCode="1" android:versionName="1.0" android:installLocation="preferExternal">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="23" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<service android:name=".RFService" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة ذكرني لأبديتي" android:enabled="true" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<receiver android:name="rebootApplication.BootReceiver" android:enabled="true" android:exported="true" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+		<intent-filter>
+			<action android:name="android.intent.action.BOOT_COMPLETED" />
+			<action android:name="android.intent.action.QUICKBOOT_POWERON" />
+			<category android:name="android.intent.category.DEFAULT" />
+		</intent-filter>
+	</receiver>
+	<service android:name=".MKS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الإجتماعات والقداسات" android:enabled="true" />
 	<service android:name=".JesusPrayS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الصلاة السهمية" android:enabled="true" />
 	<service android:name=".FastsS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الأصوام" android:enabled="true" />
-  <service android:name=".Prayers" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الصلاة" android:enabled="true" />
-	<application android:label="ذكرني لأبديتي" android:icon="@drawable/Icon"></application>
+	<service android:name=".Prayers" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الصلاة" android:enabled="true" />
+	<service android:name=".HBS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة قراءة الكتاب المقدس" android:enabled="true" />
+	<application android:label="كونوا مستعدين" android:icon="@drawable/Icon"></application>
 </manifest>
