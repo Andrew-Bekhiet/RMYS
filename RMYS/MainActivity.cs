@@ -12,14 +12,14 @@ using Java.Util;
 using static System.DateTime;
 using Android.Media;
 using Android.Animation;
-
+using Android.Gms.Ads;
 namespace RMYS
 {
     [Activity(Label = "كونوا مستعدين", Theme = "@android:style/Theme.Holo.Light.NoActionBar", MainLauncher = true, ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/Icon")]
-    [System.Runtime.InteropServices.Guid("30F89535-5D12-4C3E-9197-FBC0ACFD2B74")]
     public class MainActivity : Activity
     {
 #pragma warning disable CS0618 // Type or member is obsolete
+        //ca-app-pub-7815790223324062~4750217627
         Database DB = new Database();
         string[] Ms = { };
         string[] AP = { "Main" };
@@ -32,11 +32,16 @@ namespace RMYS
         bool FM = true;
         protected override void OnCreate(Bundle bundle)
         {
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            base.OnCreate(bundle);
+            //DB = new Database("DB", 1); //error
+            //DB.DBCursor = DB.GetRecordCursor("ss", "ss", 1); //error
+            //DB.DBCursor.MoveToFirst(); //error
+            //DB.DBCursor.GetString(0); //error
             try
             {
-                RequestWindowFeature(WindowFeatures.NoTitle);
-                base.OnCreate(bundle);
                 SetContentView(Layout.Main);
+                
                 if (!File.Exists(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "DB.db")))
                 {
                     Intent RFIntent = new Intent(this, typeof(MKS));
@@ -272,11 +277,17 @@ namespace RMYS
                 {
                     DB = new Database("DB", 2);
                     DB = new Database("DB", 1);
+                    LinearLayout LL = FindViewById<LinearLayout>(Id.MLL01);
                     Button Meet = FindViewById<Button>(Id.Meet);
                     Button Kodas = FindViewById<Button>(Id.Kodas);
                     Button HolyB = FindViewById<Button>(Id.HolyB);
                     Button SLaw = FindViewById<Button>(Id.SLaw);
                     Button About = FindViewById<Button>(Id.About);
+
+                    //AdView adView = FindViewById<AdView>(Id.adView)
+                    //Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, "ca-app-pub-7815790223324062~4750217627");
+                    //adView.LoadAd(new AdRequest.Builder().Build());
+                    
                     Meet.Click += delegate { type = "M"; SetContentView(Layout.Meetings, "Meetings"); };
                     Kodas.Click += delegate { type = "K"; SetContentView(Layout.Meetings, "Meetings"); };
                     HolyB.Click += delegate { SetContentView(Layout.HolyBible, "HolyBible"); };
@@ -670,7 +681,7 @@ namespace RMYS
                                                     .SetContentIntent(pendingIntent)
                                                     .SetAutoCancel(true)
                                                     .SetContentText("هل أنت مستعد للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + " " + C.GetString(2) + "في " + C.GetString(3) + "؟")
-                                                    .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                                                    .SetDefaults(NotificationDefaults.Sound)
                                                     .SetSmallIcon(Resource.Drawable.Icon)
                                                     .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                                             // Build the notification:
@@ -707,7 +718,7 @@ namespace RMYS
                                                     .SetContentIntent(pendingIntent)
                                                     .SetContentText("متبقي 5 دقائق للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + " " + C.GetString(2) + "في " + C.GetString(3))
                                                     .SetAutoCancel(true)
-                                                    .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                                                    .SetDefaults(NotificationDefaults.Sound)
                                                     .SetSmallIcon(Resource.Drawable.Icon)
                                                     .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                                             // Build the notification:

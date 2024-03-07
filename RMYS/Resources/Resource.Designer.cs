@@ -124,62 +124,62 @@ namespace RMYS
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06002e
-			public const int About = 2131099694;
+			// aapt resource value: 0x7f06002f
+			public const int About = 2131099695;
 			
 			// aapt resource value: 0x7f060027
 			public const int AddH = 2131099687;
 			
-			// aapt resource value: 0x7f06002f
-			public const int AddM = 2131099695;
+			// aapt resource value: 0x7f060030
+			public const int AddM = 2131099696;
 			
-			// aapt resource value: 0x7f06003e
-			public const int Baker = 2131099710;
+			// aapt resource value: 0x7f06003f
+			public const int Baker = 2131099711;
 			
 			// aapt resource value: 0x7f06000d
 			public const int DeleteM = 2131099661;
 			
+			// aapt resource value: 0x7f06005e
+			public const int FB3etas = 2131099742;
+			
 			// aapt resource value: 0x7f06005d
-			public const int FB3etas = 2131099741;
-			
-			// aapt resource value: 0x7f06005c
-			public const int FBBorn = 2131099740;
-			
-			// aapt resource value: 0x7f060059
-			public const int FBorn = 2131099737;
-			
-			// aapt resource value: 0x7f060056
-			public const int FForty = 2131099734;
-			
-			// aapt resource value: 0x7f060055
-			public const int FFri = 2131099733;
-			
-			// aapt resource value: 0x7f060057
-			public const int FHWeek = 2131099735;
+			public const int FBBorn = 2131099741;
 			
 			// aapt resource value: 0x7f06005a
-			public const int FNein = 2131099738;
+			public const int FBorn = 2131099738;
+			
+			// aapt resource value: 0x7f060057
+			public const int FForty = 2131099735;
+			
+			// aapt resource value: 0x7f060056
+			public const int FFri = 2131099734;
 			
 			// aapt resource value: 0x7f060058
-			public const int FSend = 2131099736;
+			public const int FHWeek = 2131099736;
 			
 			// aapt resource value: 0x7f06005b
-			public const int FStMary = 2131099739;
+			public const int FNein = 2131099739;
 			
-			// aapt resource value: 0x7f060054
-			public const int FWed = 2131099732;
+			// aapt resource value: 0x7f060059
+			public const int FSend = 2131099737;
+			
+			// aapt resource value: 0x7f06005c
+			public const int FStMary = 2131099740;
+			
+			// aapt resource value: 0x7f060055
+			public const int FWed = 2131099733;
+			
+			// aapt resource value: 0x7f060052
+			public const int FaLL = 2131099730;
 			
 			// aapt resource value: 0x7f060051
-			public const int FaLL = 2131099729;
-			
-			// aapt resource value: 0x7f060050
-			public const int Fast = 2131099728;
+			public const int Fast = 2131099729;
 			
 			// aapt resource value: 0x7f060010
 			public const int HAdd = 2131099664;
 			
-			// aapt resource value: 0x7f06004f
-			public const int HBButton = 2131099727;
+			// aapt resource value: 0x7f060050
+			public const int HBButton = 2131099728;
 			
 			// aapt resource value: 0x7f060029
 			public const int HBCancel = 2131099689;
@@ -244,71 +244,74 @@ namespace RMYS
 			// aapt resource value: 0x7f06001c
 			public const int HWDD = 2131099676;
 			
-			// aapt resource value: 0x7f06002c
-			public const int HolyB = 2131099692;
-			
-			// aapt resource value: 0x7f06004a
-			public const int JPL = 2131099722;
+			// aapt resource value: 0x7f06002d
+			public const int HolyB = 2131099693;
 			
 			// aapt resource value: 0x7f06004b
-			public const int JPL2 = 2131099723;
+			public const int JPL = 2131099723;
 			
 			// aapt resource value: 0x7f06004c
-			public const int JPLNum = 2131099724;
+			public const int JPL2 = 2131099724;
 			
 			// aapt resource value: 0x7f06004d
-			public const int JPSpin = 2131099725;
+			public const int JPLNum = 2131099725;
 			
-			// aapt resource value: 0x7f06002b
-			public const int Kodas = 2131099691;
+			// aapt resource value: 0x7f06004e
+			public const int JPSpin = 2131099726;
 			
-			// aapt resource value: 0x7f06003c
-			public const int L1 = 2131099708;
+			// aapt resource value: 0x7f06002c
+			public const int Kodas = 2131099692;
 			
-			// aapt resource value: 0x7f060047
-			public const int L2 = 2131099719;
+			// aapt resource value: 0x7f06003d
+			public const int L1 = 2131099709;
 			
-			// aapt resource value: 0x7f060052
-			public const int L3 = 2131099730;
+			// aapt resource value: 0x7f060048
+			public const int L2 = 2131099720;
 			
-			// aapt resource value: 0x7f060036
-			public const int MDays = 2131099702;
-			
-			// aapt resource value: 0x7f060033
-			public const int MLL = 2131099699;
-			
-			// aapt resource value: 0x7f060044
-			public const int MN1 = 2131099716;
-			
-			// aapt resource value: 0x7f060045
-			public const int MN2 = 2131099717;
-			
-			// aapt resource value: 0x7f060046
-			public const int MN3 = 2131099718;
-			
-			// aapt resource value: 0x7f060034
-			public const int MName = 2131099700;
-			
-			// aapt resource value: 0x7f060032
-			public const int MOrder = 2131099698;
-			
-			// aapt resource value: 0x7f060035
-			public const int MPlace = 2131099701;
-			
-			// aapt resource value: 0x7f060031
-			public const int MSearch = 2131099697;
-			
-			// aapt resource value: 0x7f060030
-			public const int MSearchB = 2131099696;
+			// aapt resource value: 0x7f060053
+			public const int L3 = 2131099731;
 			
 			// aapt resource value: 0x7f060037
-			public const int MTiming = 2131099703;
+			public const int MDays = 2131099703;
+			
+			// aapt resource value: 0x7f060034
+			public const int MLL = 2131099700;
 			
 			// aapt resource value: 0x7f06002a
-			public const int Meet = 2131099690;
+			public const int MLL01 = 2131099690;
 			
-			// aapt resource value: 0x7f06005e
-			public const int Metaniat = 2131099742;
+			// aapt resource value: 0x7f060045
+			public const int MN1 = 2131099717;
+			
+			// aapt resource value: 0x7f060046
+			public const int MN2 = 2131099718;
+			
+			// aapt resource value: 0x7f060047
+			public const int MN3 = 2131099719;
+			
+			// aapt resource value: 0x7f060035
+			public const int MName = 2131099701;
+			
+			// aapt resource value: 0x7f060033
+			public const int MOrder = 2131099699;
+			
+			// aapt resource value: 0x7f060036
+			public const int MPlace = 2131099702;
+			
+			// aapt resource value: 0x7f060032
+			public const int MSearch = 2131099698;
+			
+			// aapt resource value: 0x7f060031
+			public const int MSearchB = 2131099697;
+			
+			// aapt resource value: 0x7f060038
+			public const int MTiming = 2131099704;
+			
+			// aapt resource value: 0x7f06002b
+			public const int Meet = 2131099691;
+			
+			// aapt resource value: 0x7f06005f
+			public const int Metaniat = 2131099743;
 			
 			// aapt resource value: 0x7f06000e
 			public const int NMCancel = 2131099662;
@@ -349,56 +352,56 @@ namespace RMYS
 			// aapt resource value: 0x7f060007
 			public const int NMWednesday = 2131099655;
 			
-			// aapt resource value: 0x7f060041
-			public const int Ninth = 2131099713;
+			// aapt resource value: 0x7f060042
+			public const int Ninth = 2131099714;
+			
+			// aapt resource value: 0x7f06003c
+			public const int PLL = 2131099708;
+			
+			// aapt resource value: 0x7f060049
+			public const int PalNum = 2131099721;
 			
 			// aapt resource value: 0x7f06003b
-			public const int PLL = 2131099707;
+			public const int Pray = 2131099707;
 			
-			// aapt resource value: 0x7f060048
-			public const int PalNum = 2131099720;
+			// aapt resource value: 0x7f060062
+			public const int SLCancel = 2131099746;
 			
-			// aapt resource value: 0x7f06003a
-			public const int Pray = 2131099706;
+			// aapt resource value: 0x7f06003e
+			public const int SLLL = 2131099710;
+			
+			// aapt resource value: 0x7f060054
+			public const int SLLL2 = 2131099732;
+			
+			// aapt resource value: 0x7f06002e
+			public const int SLaw = 2131099694;
 			
 			// aapt resource value: 0x7f060061
-			public const int SLCancel = 2131099745;
-			
-			// aapt resource value: 0x7f06003d
-			public const int SLLL = 2131099709;
-			
-			// aapt resource value: 0x7f060053
-			public const int SLLL2 = 2131099731;
-			
-			// aapt resource value: 0x7f06002d
-			public const int SLaw = 2131099693;
+			public const int SaveA = 2131099745;
 			
 			// aapt resource value: 0x7f060060
-			public const int SaveA = 2131099744;
+			public const int SaveF = 2131099744;
 			
-			// aapt resource value: 0x7f06005f
-			public const int SaveF = 2131099743;
-			
-			// aapt resource value: 0x7f06004e
-			public const int SaveP = 2131099726;
+			// aapt resource value: 0x7f06004f
+			public const int SaveP = 2131099727;
 			
 			// aapt resource value: 0x7f060026
 			public const int ShowH = 2131099686;
 			
-			// aapt resource value: 0x7f060040
-			public const int Sixth = 2131099712;
+			// aapt resource value: 0x7f060041
+			public const int Sixth = 2131099713;
+			
+			// aapt resource value: 0x7f060044
+			public const int Sleep = 2131099716;
+			
+			// aapt resource value: 0x7f060039
+			public const int Space = 2131099705;
 			
 			// aapt resource value: 0x7f060043
-			public const int Sleep = 2131099715;
+			public const int Sunset = 2131099715;
 			
-			// aapt resource value: 0x7f060038
-			public const int Space = 2131099704;
-			
-			// aapt resource value: 0x7f060042
-			public const int Sunset = 2131099714;
-			
-			// aapt resource value: 0x7f06003f
-			public const int Third = 2131099711;
+			// aapt resource value: 0x7f060040
+			public const int Third = 2131099712;
 			
 			// aapt resource value: 0x7f060015
 			public const int Visor = 2131099669;
@@ -406,14 +409,14 @@ namespace RMYS
 			// aapt resource value: 0x7f060002
 			public const int WDD = 2131099650;
 			
-			// aapt resource value: 0x7f060039
-			public const int linearLayout1 = 2131099705;
+			// aapt resource value: 0x7f06003a
+			public const int linearLayout1 = 2131099706;
 			
 			// aapt resource value: 0x7f06001e
 			public const int radioGroup1 = 2131099678;
 			
-			// aapt resource value: 0x7f060049
-			public const int relativeLayout1 = 2131099721;
+			// aapt resource value: 0x7f06004a
+			public const int relativeLayout1 = 2131099722;
 			
 			// aapt resource value: 0x7f060014
 			public const int textView1 = 2131099668;
@@ -473,6 +476,9 @@ namespace RMYS
 			
 			// aapt resource value: 0x7f040000
 			public const int TBS = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int ads_id = 2130968578;
 			
 			static String()
 			{

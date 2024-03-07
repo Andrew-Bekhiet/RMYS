@@ -54,7 +54,7 @@ namespace RMYS
                         .SetContentIntent(pendingIntent)
                         .SetAutoCancel(true)
                         .SetContentText("حان موعد قراءة الكتاب المقدس")
-                        .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                        .SetDefaults(NotificationDefaults.Sound)
                         .SetSmallIcon(Resource.Drawable.Icon)
                         .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                     // Build the notification:

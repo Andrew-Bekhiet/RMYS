@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="AAB.RMYF" android:versionCode="1" android:versionName="1.0" android:installLocation="preferExternal">
-	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="23" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="AAB.RMYF" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="19" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<receiver android:name="rebootApplication.BootReceiver" android:enabled="true" android:exported="true" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
 		<intent-filter>
@@ -16,5 +18,8 @@
 	<service android:name=".FastsS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الأصوام" android:enabled="true" />
 	<service android:name=".Prayers" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة الصلاة" android:enabled="true" />
 	<service android:name=".HBS" android:exported="false" android:icon="@drawable/Icon" android:label="خدمة قراءة الكتاب المقدس" android:enabled="true" />
-	<application android:label="كونوا مستعدين" android:icon="@drawable/Icon"></application>
+	<application android:label="كونوا مستعدين" android:icon="@drawable/Icon">
+		<!--activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" /-->
+	</application>
+	<!--meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-7815790223324062~4750217627" /-->
 </manifest>

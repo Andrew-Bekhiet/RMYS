@@ -2,6 +2,7 @@
 <resources>
     <string name="TBS">ذكرني لأبديتي</string>
     <string name="ApplicationName">RMYS</string>
+    <string name="ads_id">ca-app-pub-7815790223324062/7805532470</string>
     <string-array name="Order">
       <item>الإسم (تصاعدي)</item>
       <item>الإسم (تنازلي)</item>

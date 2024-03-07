@@ -35,7 +35,7 @@ namespace RMYS
                 .SetContentIntent(pendingMain)
                 .SetAutoCancel(true)
                 .SetContentText(JesusPrayArray[RandomPray])
-                .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                .SetDefaults(NotificationDefaults.Sound)
                 .SetSmallIcon(Resource.Drawable.Icon)
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
             // Build the notification:

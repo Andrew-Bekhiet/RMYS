@@ -2,6 +2,7 @@
 using Android.Content;
 using static System.DateTime;
 using Android.Media;
+using System;
 
 namespace RMYS
 {
@@ -16,7 +17,20 @@ namespace RMYS
         {
 
         }
-
+        private bool IsAppInstalled(string packageName)
+        {
+            bool installed = false;
+            try
+            {
+                PackageManager.GetPackageInfo(packageName, Android.Content.PM.PackageInfoFlags.Activities);
+                installed = true;
+            }
+            catch
+            {
+                installed = false;
+            }
+            return installed;
+        }
         public override void OnCreate()
         {
             base.OnCreate();
@@ -33,15 +47,26 @@ namespace RMYS
             DB.DBCursor.MoveToFirst();
             string Prayers = DB.DBCursor.GetString(2);
             bool Continue = true;
-
-            Intent intent2 = new Intent(this, typeof(MainActivity));
+            Intent intent2;
+            if (IsAppInstalled("com.app.orsozoxi"))
+            {
+                intent2 = PackageManager.GetLaunchIntentForPackage("com.app.orsozoxi");
+            }
+            else if (IsAppInstalled("appinventor.ai_andrewBekhiet.Agpeya"))
+            {
+                intent2 = PackageManager.GetLaunchIntentForPackage("appinventor.ai_andrewBekhiet.Agpeya");
+            }
+            else
+            {
+                intent2 = new Intent(this, typeof(MainActivity));
+            }
             PendingIntent pendingIntent = PendingIntent.GetActivity(this, 77, intent2, PendingIntentFlags.OneShot);
-
+            //PackageManager.ex
             Notification.Builder builder = new Notification.Builder(this)
                     .SetContentTitle("كونوا مستعدين")
                     .SetContentIntent(pendingIntent)
                     .SetAutoCancel(true)
-                    .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                    .SetDefaults(NotificationDefaults.Sound)
                     .SetSmallIcon(Resource.Drawable.Icon)
                     .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
             Notification.BigTextStyle textStyle = new Notification.BigTextStyle();

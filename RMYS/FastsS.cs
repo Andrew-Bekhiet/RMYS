@@ -249,10 +249,11 @@ namespace RMYS
                             .SetContentTitle("كونوا مستعدين")
                             .SetAutoCancel(true)
                             .SetContentText("اليوم صوم الأربعاء")
-                            .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                            .SetDefaults(NotificationDefaults.Sound)
                             .SetSmallIcon(Resource.Drawable.Icon)
                             .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                         Notification notification = builder.Build();
+                        notification.Flags = NotificationFlags.NoClear;
                         NotificationManager notificationManager = GetSystemService(Context.NotificationService) as NotificationManager;
                         notificationManager.Notify(4, notification);
                     }
@@ -262,10 +263,11 @@ namespace RMYS
                             .SetContentTitle("كونوا مستعدين")
                             .SetAutoCancel(true)
                             .SetContentText("اليوم صوم الجمعة")
-                            .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                            .SetDefaults(NotificationDefaults.Sound)
                             .SetSmallIcon(Resource.Drawable.Icon)
                             .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                         Notification notification = builder.Build();
+                        notification.Flags = NotificationFlags.NoClear;
                         NotificationManager notificationManager = GetSystemService(Context.NotificationService) as NotificationManager;
                         notificationManager.Notify(4, notification);
                     }
@@ -275,7 +277,7 @@ namespace RMYS
                             .SetContentTitle("كونوا مستعدين")
                             .SetAutoCancel(true)
                             .SetContentIntent(PI)
-                            .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                            .SetDefaults(NotificationDefaults.Sound)
                             .SetSmallIcon(Resource.Drawable.Icon)
                             .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                         Notification.BigTextStyle textStyle = new Notification.BigTextStyle();
@@ -342,6 +344,7 @@ namespace RMYS
                     {
                         NBuilder.SetStyle(textStyle);
                         Notification N = NBuilder.Build();
+                        N.Flags = NotificationFlags.NoClear;
                         NotificationManager NManager = GetSystemService(Context.NotificationService) as NotificationManager;
                         NManager.Notify(5, N); 
                     }

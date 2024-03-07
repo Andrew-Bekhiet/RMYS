@@ -60,7 +60,7 @@ namespace RMYS
                         {
                             if (Days[i2] == new DateTime(Now.Year, Now.Month, Now.Day).ToString("dddd", new System.Globalization.CultureInfo("ar-Eg")))
                             {
-                                if (DateTime.Parse(C.GetString(5)).AddMinutes(-5).ToString("HH:mm") != (Now.Hour + 1) + ":" + Now.Minute & DateTime.Parse(C.GetString(5)).AddMinutes(-30).ToString("HH:mm") != (Now.Hour + 1) + ":" + Now.Minute)
+                                if (DateTime.Parse(C.GetString(5)).AddMinutes(-5).ToString("HH:mm") != (Now.Hour) + ":" + Now.Minute & DateTime.Parse(C.GetString(5)).AddMinutes(-30).ToString("HH:mm") != (Now.Hour ) + ":" + Now.Minute)
                                 {
                                     Intent wake = new Intent(Application.Context, typeof(MKS));
                                     PendingIntent pending = PendingIntent.GetService(Application.Context, 4, wake, PendingIntentFlags.UpdateCurrent);
@@ -75,7 +75,7 @@ namespace RMYS
                                     //                                Toast.MakeText(this, "1st Time", ToastLength.Long).Show();
                                     //#endif
                                 }
-                                else if (DateTime.Parse(C.GetString(5)).AddMinutes(-30).ToString("HH:mm") == (Now.Hour + 1) + ":" + Now.Minute)
+                                else if (DateTime.Parse(C.GetString(5)).AddMinutes(-30).ToString("HH:mm") == (Now.Hour ) + ":" + Now.Minute)
                                 {
                                     // Set up an intent so that tapping the notifications returns to this app:
                                     Intent intent2 = new Intent(this, typeof(MainActivity));
@@ -87,7 +87,7 @@ namespace RMYS
                                         .SetAutoCancel(true)
                                         .SetContentIntent(pendingIntent)
                                         .SetContentText("هل أنت مستعد للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + " " + C.GetString(2) + "في " + C.GetString(3) + "؟")
-                                        .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                                        .SetDefaults(NotificationDefaults.Sound)
                                         .SetSmallIcon(Resource.Drawable.Icon)
                                         .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));
                                     // Build the notification:
@@ -113,7 +113,7 @@ namespace RMYS
                                     //                                Toast.MakeText(this, "2nd Time", ToastLength.Long).Show();
                                     //#endif
                                 }
-                                else if (DateTime.Parse(C.GetString(5)).AddMinutes(-5).ToString("HH:mm") == (Now.Hour + 1) + ":" + Now.Minute)
+                                else if (DateTime.Parse(C.GetString(5)).AddMinutes(-5).ToString("HH:mm") == (Now.Hour ) + ":" + Now.Minute)
                                 {
                                     Intent intent2 = new Intent(this, typeof(MainActivity));
                                     PendingIntent pendingIntent = PendingIntent.GetActivity(this, 1, intent2, PendingIntentFlags.OneShot);
@@ -123,7 +123,7 @@ namespace RMYS
                                         .SetContentTitle("كونوا مستعدين")
                                         .SetContentIntent(pendingIntent)
                                         .SetContentText("متبقي 5 دقائق للذهاب إلى " + SIF("إجتماع", !C.GetString(2).Contains("إجتماع") & !C.GetString(2).Contains("اجتماع") & C.GetString(1) == "M") + SIF("قداس ", !C.GetString(2).Contains("قداس") & C.GetString(1) == "K") + " " + C.GetString(2) + "في " + C.GetString(3))
-                                        .SetDefaults(NotificationDefaults.Sound | NotificationDefaults.Vibrate)
+                                        .SetDefaults(NotificationDefaults.Sound)
                                         .SetAutoCancel(true)
                                         .SetSmallIcon(Resource.Drawable.Icon)
                                         .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Ringtone));

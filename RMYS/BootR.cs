@@ -71,7 +71,7 @@ namespace RMYS.Properties
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
         }
